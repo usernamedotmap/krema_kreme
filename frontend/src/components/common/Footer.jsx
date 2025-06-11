@@ -97,7 +97,7 @@ const Footer = () => {
                 className="hover:text-gray-500 font-bold transition-colors"
                 to="https://delivery.dencios.com.ph/"
               >
-                Combo af
+                Mix & Match
                 <img
                   src="https://mgi-deliveryportal.s3.amazonaws.com/24-mixed.jpg"
                   className="h-24 w-24 object-contain   "

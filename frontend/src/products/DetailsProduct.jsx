@@ -3,6 +3,7 @@ import { GoPlus } from "react-icons/go";
 import { HiMinus } from "react-icons/hi2";
 import { toast } from "sonner";
 import ProductsLike from "./ProductsLike";
+import ShopPage from "../pages/ShopPage";
 
 const bestProducts = [
   {
@@ -102,6 +103,7 @@ const DetailsProduct = () => {
 
   const handleQuantityChange = (galaw) => {
     if (galaw === "plus") setQuantity((prev) => prev + 1);
+
     if (galaw === "minus" && quantity > 1) setQuantity((prev) => prev - 1);
   };
 
@@ -259,12 +261,7 @@ const DetailsProduct = () => {
           </div>
         </div>
 
-        <div className="mt-20">
-          <h2 className="text-2xl text-center font-semibold mb-4">
-            Baka Gusto Mo Lang
-          </h2>
-          <ProductsLike products={similarProduct} />
-        </div>
+        
       </div>
     </div>
   );

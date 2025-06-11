@@ -155,6 +155,7 @@ const ShopPage = () => {
         {/* mga product */}
 
         <ProductGrid products={products} />
+        
       </div>
     </div>
   );

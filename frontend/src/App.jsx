@@ -9,6 +9,14 @@ import ShopPage from "./pages/ShopPage";
 import DetailsProduct from "./products/DetailsProduct";
 import Checkout from "./components/cart/Checkout";
 import OrderConfirmation from "./pages/OrderConfirmation";
+import OrderDetails from "./pages/OrderDetails";
+import OrderPage from "./pages/OrderPage";
+import AdminLayout from "./components/admin/AdminLayout";
+import AdminHomePage from "./pages/admin/AdminHomePage";
+import UserManagement from "./components/admin/UserManagement";
+import ProductsManagement from "./components/admin/ProductsManagement";
+import EditProduct from "./components/admin/EditProduct";
+import OrderManagement from "./components/admin/OrderManagement";
 
 function App() {
   return (
@@ -25,8 +33,18 @@ function App() {
             <Route path="product/:id" element={<DetailsProduct />} />
             <Route path="checkout" element={<Checkout />} />
             <Route path="order-confirmation" element={<OrderConfirmation />} />
+            <Route path="order-details/:id" element={<OrderDetails />} />
+            <Route path="/my-orders" element={<OrderPage />} />
           </Route>
-          <Route></Route>
+
+          {/* for admin dito */}
+          <Route path="/admin" element={<AdminLayout />}>
+            <Route index element={<AdminHomePage />} />
+            <Route path="users" element={<UserManagement />} />
+            <Route path="products" element={<ProductsManagement />} />
+            <Route path="products/:id/edit" element={<EditProduct />} />
+            <Route path="orders" element={<OrderManagement />} />
+          </Route>
         </Routes>
       </BrowserRouter>
     </>

@@ -31,33 +31,34 @@ const Navbar = () => {
         {/* menu siguro  */}
         <div className="hidden md:flex space-x-6 ">
           <Link
+            to="/"
+            className="text-gray-700 hover:text-black text-sm font-medium uppercase"
+          >
+            HOME
+          </Link>
+          <Link
             to="/collections/all"
             className="text-gray-700 hover:text-black text-sm font-medium uppercase"
           >
-            Assorted
+            DONUTS
           </Link>
           <Link
             to="/"
             className="text-gray-700 hover:text-black text-sm font-medium uppercase"
           >
-            Original
+            DRINKS
           </Link>
           <Link
             to="/"
             className="text-gray-700 hover:text-black text-sm font-medium uppercase"
           >
-            Drinks
-          </Link>
-          <Link
-            to="/"
-            className="text-gray-700 hover:text-black text-sm font-medium uppercase"
-          >
-            Combo af
+            MIX & MATCH
           </Link>
         </div>
 
         {/* para sa icons like cart noh */}
         <div className="flex items-center space-x-4">
+          <Link to="/admin" className="block bg-black px-2 rounded text-sm text-white">Admin</Link>
           <Link to="/profile" className="hover:text-black">
             <CiUser className="size-6" />
           </Link>

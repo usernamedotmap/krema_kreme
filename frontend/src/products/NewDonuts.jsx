@@ -70,7 +70,7 @@ const NewDonuts = () => {
   const newProducts = [
     {
       _id: "1",
-      name: "Lotus Bisoff Chiller",
+      name: "Cookies & Kreme Chiller with Espresso",
       price: 230.0,
       img: [
         {
@@ -81,7 +81,7 @@ const NewDonuts = () => {
     },
     {
       _id: "2",
-      name: "Lotus Bisoff Chiller",
+      name: "Mocha Chill",
       price: 230.0,
       img: [
         {
@@ -92,7 +92,7 @@ const NewDonuts = () => {
     },
     {
       _id: "3",
-      name: "Lotus Bisoff Chiller",
+      name: "White Mocha",
       price: 230.0,
       img: [
         {
@@ -103,7 +103,7 @@ const NewDonuts = () => {
     },
     {
       _id: "4",
-      name: "Lotus Bisoff Chiller",
+      name: "White Mocha Chille",
       price: 230.0,
       img: [
         {
@@ -139,7 +139,7 @@ const NewDonuts = () => {
     <section className="py-16 px-4 lg:px-0">
       <div className="container mx-auto text-center mb-10 relative">
         <h2 className="text-3xl fond-bold mb-4 capitalize font-bold">
-          Try oour new downots and dreinks
+          Try Our New Donuts and Drinks
         </h2>
         <p className="text-lg text-gray-600 mb-8">
           discover may apply to something requiring exploration or investigation
@@ -192,12 +192,6 @@ const NewDonuts = () => {
             <div className="absolute bottom-0 right-0 left-0 bg-opacity-50 backdrop-blur-md text-gray-800 p-4 rounded-b-lg">
               <Link to={`/product/${products._id}`} className="block">
                 <h2 className="font-medium text-xl">{products.name}</h2>
-                <p className="mt-1 ">
-                  {products.price.toLocaleString("en-PH", {
-                    currency: "PHP",
-                    style: "currency",
-                  })}
-                </p>
               </Link>
             </div>
           </div>

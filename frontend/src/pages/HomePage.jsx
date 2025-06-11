@@ -96,7 +96,7 @@ const placeholderProducts = [
     ],
   },
 ];
-
+  
 const HomePage = () => {
   return (
     <div>
@@ -107,14 +107,14 @@ const HomePage = () => {
       <h2 className="text-3xl text-center fond-bold mb-4">G.O.A.T</h2>
       <DetailsProduct />
 
-      <div className="container mx-auto">
+      {/* <div className="container mx-auto">
         <h2 className="text-3xl text-center font-bold mb-4 capitalize">
           Topmost dawnuts for patay gutom
         </h2>
        
         
           <ProductGrid products={placeholderProducts} />
-      </div>
+      </div> */}
 
       <FeaturedCollection />
     </div>

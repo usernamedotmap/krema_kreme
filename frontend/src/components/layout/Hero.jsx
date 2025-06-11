@@ -13,11 +13,8 @@ const Hero = () => {
         <div className="text-black text-center p-6">
           {/* probably yung title nalang dito la ako maisip */}
           <h1 className="text-4xl md:text-9xl tracking-tighter uppercase mb-4">
-            KREMA <br /> Kreme
+            HUNGER <br /> HALT
           </h1>
-          <p className="text-sm tracking-tighter md:text-lg mb-6 capitalize">
-            Try my Doughnuts to make u feel better
-          </p>
           <Link
             to="#"
             className="bg-[#ac7652] text-gray-200 px-6 py-2 rounded-sm text-lg hover:bg-[#E5D5ca] hover:text-gray-700"

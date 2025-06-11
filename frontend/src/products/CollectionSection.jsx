@@ -21,7 +21,7 @@ const CollectionSection = () => {
               to="/collections/all?flavor=Assorted"
               className="text-gray-200 border p-2 rounded-lg hover:bg-stone-700"
             >
-              Order Now 🙏
+              Order Now 
             </Link>
           </div>
         </div>
@@ -41,7 +41,7 @@ const CollectionSection = () => {
               to="/collections/all?flavor=Original"
               className="text-gray-200 border p-2 rounded-lg hover:bg-stone-700 "
             >
-              Order Now 🙏
+              Order Now 
             </Link>
           </div>
         </div>
