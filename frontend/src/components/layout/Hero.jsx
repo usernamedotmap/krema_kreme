@@ -5,9 +5,9 @@ const Hero = () => {
   return (
     <>
     <section className="relative ">
-      <video className="w-full h-[400px] md:h-[600px] lg:h-[750px] object-cover">
-        <source src="https://mgi-deliveryportal.s3.ap-southeast-1.amazonaws.com/assets/Glazing - 720p.mp4" />
-      </video>
+      <div className="w-full h-[300px] md:h-[600px] lg:h-[450px] object-cover">
+      <img src="" alt="" className="" />
+      </div>  
 
       <div className="absolute inset-0 bg-[#E0D7F5] bg-opacity-70 flex items-center justify-center">
         <div className="text-black text-center p-6">
@@ -16,7 +16,7 @@ const Hero = () => {
             HUNGER <br /> HALT
           </h1>
           <Link
-            to="#"
+            to="/collections/all"
             className="bg-[#ac7652] text-gray-200 px-6 py-2 rounded-sm text-lg hover:bg-[#E5D5ca] hover:text-gray-700"
           >
             Buy Now

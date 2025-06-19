@@ -79,6 +79,16 @@ export const putProduct = async (req, res) => {
         isPublished !== undefined ? isPublished : product.isPublished;
       product.discountPrice = discountPrice || product.discountPrice;
 
+      if (
+        !Array.isArray(sizes) ||
+        !sizes.every(
+          (s) =>
+            typeof s.label === "string" && typeof s.additionalPrice === "number"
+        )
+      ) {
+        return res.status(400).json({ message: "Invalid size format" });
+      }
+
       const updatedProduct = await product.save();
 
       res.json(updatedProduct);
@@ -174,6 +184,31 @@ export const getProductWithFilter = async (req, res) => {
   }
 };
 
+export const similarProducts = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const product = await Product.findById(id);
+    if (!product) {
+      return res.status(404).json({
+        message: "Product not found",
+      });
+    }
+
+    const similarProducts = await Product.find({
+      _id: { $ne: id },
+      price: product.price,
+    }).limit(4);
+
+    res.json(similarProducts);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      message: "Internal Server Error",
+    });
+  }
+};
+
 export const bestSellerProducts = async (req, res) => {
   try {
     const bestSeller = await Product.findOne().sort({ rating: -1 });
@@ -194,15 +229,14 @@ export const bestSellerProducts = async (req, res) => {
 };
 
 export const newArrivalProducts = async (req, res) => {
-
   try {
-    const newArrivals = await Product.find().sort({createdAt: -1}).limit(8);
-    res.json(newArrivals)
+    const newArrivals = await Product.find().sort({ createdAt: -1 }).limit(8);
+    res.json(newArrivals);
   } catch (error) {
     console.log(error);
-    res.status(500).json({message: "Internal Server Error"})
+    res.status(500).json({ message: "Internal Server Error" });
   }
-}
+};
 
 export const getProductById = async (req, res) => {
   const { id } = req.params;

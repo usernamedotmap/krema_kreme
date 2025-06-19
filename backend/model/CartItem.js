@@ -8,9 +8,24 @@ const CartItemSchema = new mongoose.Schema(
       required: true,
     },
     name: String,
-    images: [String],
+    images: [
+      {
+        url: String,
+        altText: String,
+      },
+    ],
     price: String,
-    size: String,
+    size: {
+      label: {
+        type: String,
+        required: true,
+      },
+      additionalPrice: {
+        type: Number,
+        default: 0,
+      },
+    },
+
     quantity: {
       type: Number,
       default: 1,
@@ -32,12 +47,11 @@ const CartSchema = new mongoose.Schema(
     totalPrice: {
       type: Number,
       required: true,
-      defautl: 0,
+      default: 0,
     },
   },
   { timestamps: true }
 );
-
 
 const cart = mongoose.model("Cart", CartSchema);
 

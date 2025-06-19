@@ -5,11 +5,19 @@ import { CiShoppingBasket } from "react-icons/ci";
 import { BsShopWindow } from "react-icons/bs";
 import { SiWikibooks } from "react-icons/si";
 import { FaPersonWalkingArrowLoopLeft } from "react-icons/fa6";
+import { useDispatch } from "react-redux";
+import { logout } from "../../redux/slices/authSlice";
+import { clearCart } from "../../redux/slices/cartSlice";
 
 const AdminSidebar = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch()
+
+
   const handleLogout = () => {
-    navigate("/");
+    dispatch(logout());
+    dispatch(clearCart());
+    navigate("/login");
   };
 
   return (
@@ -59,7 +67,7 @@ const AdminSidebar = () => {
           <span className="">Orders</span>
         </NavLink>
         <NavLink
-          to="/admin/orders"
+          to="/"
           className={({ isActive }) =>
             isActive
               ? "bg-gray-700 text-white py-3 px-4 rounded flex items-center space-x-2"

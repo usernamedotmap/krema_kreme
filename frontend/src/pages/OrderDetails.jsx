@@ -1,41 +1,20 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
+import { fetchOrderDetails } from "../redux/slices/orderSlice";
 
 const OrderDetails = () => {
-  const { id } = useParams;
-  const [orderDetails, setOrderDetails] = useState(null);
+  const { id } = useParams();
+  const dispatch = useDispatch();
+  const { orderDetails, error, loading } = useSelector((state) => state.orders);
 
+  console.log("orderDetails:", orderDetails);
   useEffect(() => {
-    const mockOrderDetails = {
-      _id: id,
-      createdAt: new Date(),
-      isPaid: true,
-      isDelivered: false,
-      paymentMethod: "Paypal",
-      shippingAddress: {
-        city: "Marikina City",
-      },
-      orderItems: [
-        {
-          productId: "134",
-          name: "Eahcakes",
-          quantity: 100,
-          price: 200,
-          image:
-            "https://mgi-deliveryportal.s3.amazonaws.com/1418x1063px-MGCC-KK-Bites-Bucket.jpg",
-        },
-        {
-          productId: "2",
-          name: "Eahcakes",
-          quantity: 200,
-          price: 200,
-          image:
-            "https://mgi-deliveryportal.s3.amazonaws.com/1418x1063px-MGCC-KK-Bites-Bucket.jpg",
-        },
-      ],
-    };
-    setOrderDetails(mockOrderDetails);
-  }, [id]);
+    dispatch(fetchOrderDetails(id));
+  }, [dispatch, id]);
+
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error: {error}</p>;
   return (
     <div className="max-w-7xl mx-auto p-4 sm:p-6">
       <h2 className="text-2xl md:text-3xl font-bold mb-6">Order Details</h2>
@@ -93,7 +72,6 @@ const OrderDetails = () => {
             <table className="min-w-full text-gray-600 mb-4">
               <thead className="bg-gray-100">
                 <tr>
-                  
                   <th className="py-3 px-4 text-left">Image</th>
                   <th className="py-3 px-4 text-left">Name</th>
                   <th className="py-3 px-4 text-left">Price</th>
@@ -106,7 +84,7 @@ const OrderDetails = () => {
                   <tr key={item.productId} className="border-b  ">
                     <td className="py-2 px-4  ">
                       <img
-                        src={item.image}
+                        src={item?.images[0]?.url}
                         alt={item.name}
                         className="w-12 h-12 object-cover rounded-lg mr-4"
                       />
@@ -119,16 +97,22 @@ const OrderDetails = () => {
                         {item.name}
                       </Link>
                     </td>
-                  
-                    <td className="py-2 px-4">{item.price.toLocaleString("en-PH", {
-                      currency: "PHP",
-                      style: "currency"
-                    })}</td>
+
+                    <td className="py-2 px-4">
+                      {parseFloat(item.price)
+                        .toFixed(2)
+                        .toLocaleString("en-PH", {
+                          style: "currency",
+                          currency: "PHP",
+                        })}
+                    </td>
                     <td className="py-2 px-4">{item.quantity}</td>
-                    <td className="py-2 px-2">{(item.quantity * item.price).toLocaleString("en-PH", {
-                      currency: "PHP",
-                      style: "currency"
-                    })}</td>
+                    <td className="py-2 px-2">
+                      {(item.quantity * item.price).toLocaleString("en-PH", {
+                        currency: "PHP",
+                        style: "currency",
+                      })}
+                    </td>
                   </tr>
                 ))}
               </tbody>

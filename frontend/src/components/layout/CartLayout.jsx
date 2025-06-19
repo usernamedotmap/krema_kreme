@@ -1,14 +1,49 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { IoCloseCircleOutline } from "react-icons/io5";
 import CartContext from "../cart/CartContext";
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { mergeCart, setGuestId } from "../../redux/slices/cartSlice";
 
 const CartLayout = ({ drawerOpen, toggleDrawer }) => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+  const { user, guestId } = useSelector((state) => state.cart);
+  const { cart } = useSelector((state) => state.cart);
+  const userId = user ? user._id : null;
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const storedCart = localStorage.getItem("cart");
+    const storedGuestId = localStorage.getItem("guestId");
+    const userToken = localStorage.getItem("userToken");
+    if (storedGuestId) {
+      dispatch(setGuestId(storedGuestId));
+    }
+
+    // Only use local cart if not logged in
+    if (!user && storedCart) {
+      try {
+        const parsedCart = JSON.parse(storedCart);
+        dispatch({ type: "cart/fetchCart/fulfilled", payload: parsedCart });
+      } catch (errror) {
+        console.error("Failed to parse stored cart", errror);
+      }
+    }
+
+    // If logged in and there's a guest cart, merge them
+    if (user && storedGuestId && userToken) {
+      dispatch(mergeCart({ guestId: storedGuestId, user }));
+    }
+  }, [dispatch, user]);
 
   const handleCheckout = () => {
-    navigate("/checkout")
-  }
+    toggleDrawer();
+    if (!user) {
+      navigate("/login?redirect=/checkout");
+    } else {
+      navigate("/checkout");
+    }
+  };
 
   return (
     <div
@@ -27,17 +62,27 @@ const CartLayout = ({ drawerOpen, toggleDrawer }) => {
       {/* main show HAHAHHAHA*/}
       <div className="flex-grow p-4 overflow-y-auto">
         <h2 className="text-xl font-semibold mb-4">Your Own Cart</h2>
-
-        <CartContext />
+        {cart && cart?.products?.length > 0 ? (
+          <CartContext cart={cart} userId={userId} guestId={guestId} />
+        ) : (
+          <p>Your cart is empty po 😘</p>
+        )}
       </div>
 
       <div className="p-4 bg-[#D0E9E6] sticky bottom-0">
-        <button onClick={handleCheckout}  className="w-full bg-black text-white py-3 rounded-lg font-semibold hover:bg-gray-800">
-          CheckmeOut
-        </button>
-        <p className="text-sm text-center tracking-tighter text-gray-500 mt-2">
-          Please, Please, Please. Don't prove I'm right
-        </p>
+        {cart && cart?.products?.length > 0 && (
+          <>
+            <button
+              onClick={handleCheckout}
+              className="w-full bg-black text-white py-3 rounded-lg font-semibold hover:bg-gray-800"
+            >
+              CheckmeOut
+            </button>
+            <p className="text-sm text-center tracking-tighter text-gray-500 mt-2">
+              Please, Please, Please. Don't prove I'm right
+            </p>
+          </>
+        )}
       </div>
     </div>
   );

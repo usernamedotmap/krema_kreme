@@ -1,35 +1,22 @@
-import React from "react";
-
-const checkout = {
-  _id: "123456",
-  createdAt: new Date(),
-  checkoutItems: [
-    {
-      productId: "1",
-      name: "Eahcakes",
-      sizes: "M",
-      price: 100,
-      quantity: 2,
-      image:
-        "https://mgi-deliveryportal.s3.amazonaws.com/1418x1063px-MGCC-KK-Bites-Bucket.jpg",
-    },
-    {
-      productId: "2",
-      name: "Eahcakes",
-      sizes: "L",
-      price: 200,
-      quantity: 2,
-      image:
-        "https://mgi-deliveryportal.s3.amazonaws.com/1418x1063px-MGCC-KK-Bites-Bucket.jpg",
-    },
-  ],
-  shippingAddress: {
-    address: "DIto sa puso mo st.",
-    city: "Quezon City",
-  },
-};
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { clearCart } from "../redux/slices/cartSlice";
 
 const OrderConfirmation = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { checkout } = useSelector((state) => state.checkout);
+console.log("chekcout", checkout)
+  useEffect(() => {
+    if (checkout && checkout._id) {
+      dispatch(clearCart());
+      localStorage.removeItem("cart");
+    } else {
+      navigate("/my-orders");
+    }
+  }, [dispatch, navigate, checkout]);
+
   const estimatedDelivery = (createdAt) => {
     const orderDate = new Date(createdAt);
 
@@ -68,38 +55,46 @@ const OrderConfirmation = () => {
             </div>
           </div>
           <div className="mb-20">
-            {checkout.checkoutItems.map((item) => (
+            {checkout?.checkoutItems?.map((item) => (
               <div key={item.productId} className="flex items-center mb-4">
                 <img
-                  src={item.image}
+                  src={item?.images[0]?.url || "/fallback.jpg"}
                   alt={item.name}
                   className="w-16 h-16 object-cover rounded-md mr-4"
                 />
                 <div>
-                    <h4 className="text-md font-semibold">{item.name}</h4>
-                    <p className="text-gray-500 text-sm">
-                        {item.sizes}
-                    </p>
+                  <h4 className="text-md font-semibold">{item.name}</h4>
+                  <p className="text-gray-500 text-sm">
+                    Size: {item.size?.label || item.size}
+                  </p>
                 </div>
                 <div className="ml-auto text-right">
-                    <p className="text-md">&#8369; {item.price}.00</p>
-                    <p className="text-sm text-gray-500">QTY: {item.quantity}</p>
+                  <p className="text-md">
+                    {Number(item.price).toLocaleString("en-PH", {
+                      style: "currency",
+                      currency: "PHP",
+                      minimumFractionDigits: 2,
+                      maximumFractionDigits: 2,
+                    })}
+                  </p>
+                  <p className="text-sm text-gray-500">QTY: {item.quantity}</p>
                 </div>
               </div>
-             
             ))}
           </div>
 
           <div className="grid grid-cols-2 gap-8">
             <div>
-                <h4 className="text-lg font-semibold mb-2">Payment</h4>
-                <p className="text-gray-600">Paypal</p>
+              <h4 className="text-lg font-semibold mb-2">Payment</h4>
+              <p className="text-gray-600">Paypal</p>
             </div>
 
             <div className="">
-                <h4 className="text-lg font-semibold mb-2">Delivery</h4>
-                <p className="text-gray-600">{checkout.shippingAddress.address}</p>
-                <p className="text-gray-600">{checkout.shippingAddress.city}</p>
+              <h4 className="text-lg font-semibold mb-2">Delivery</h4>
+              <p className="text-gray-600">
+                {checkout.shippingAddress.address}
+              </p>
+              <p className="text-gray-600">{checkout.shippingAddress.city}</p>
             </div>
           </div>
         </div>

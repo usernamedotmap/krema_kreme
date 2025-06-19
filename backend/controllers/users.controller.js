@@ -16,6 +16,7 @@ export const registerController = async (req, res) => {
       name,
       email,
       password,
+ 
     });
 
     await newUser.save();
@@ -32,11 +33,12 @@ export const registerController = async (req, res) => {
         if (err) throw err;
 
         res.status(201).json({
+          message: "Register Successfully",
           user: {
             _id: newUser._id,
             name,
             email,
-            role: newUser._role,
+            role: newUser.role,
           },
           token,
         });
@@ -79,7 +81,9 @@ export const loginController = async (req, res) => {
         res.json({
           user: {
             _id: user._id,
+            name: user.name,
             email,
+            role: user.role,
           },
           token,
         });

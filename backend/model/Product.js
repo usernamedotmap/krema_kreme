@@ -27,10 +27,18 @@ const ProductSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    sizes: {
-      type: [String],
+   sizes: [
+  {
+    label: {
+      type: String,
       required: true,
     },
+    additionalPrice: {
+      type: Number,
+      default: 0,
+    },
+  },
+],
     images: [
       {
         url: {
@@ -83,4 +91,4 @@ const ProductSchema = new mongoose.Schema(
 
 const product = mongoose.model("Product", ProductSchema);
 
-export default  product;
+export default product;

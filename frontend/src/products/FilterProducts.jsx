@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
+import debounce from 'lodash.debounce';
+
 
 const FilterProducts = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -39,16 +41,17 @@ const FilterProducts = () => {
     navigate(`?${params.toString()}`);
   };
 
+const debouncUpdateURL =  debounce(updateURLParams, 500);
   const handlePriceChange = (e) => {
     const newPrice = e.target.value;
     setPriceRange([0, newPrice])
     const newFilters ={...filters, minPrice: 0, maxPrice: newPrice};
     setFilters(newFilters);
-    updateURLParams(newFilters);
+    debouncUpdateURL(newFilters);
   }
 
   return (
-    <div className="p-4">
+    <div className="p-4 bg-[#fceef0]">
       <h3 className="text-xl font-medium text-gray-800 mb-4">Filter</h3>
 
       
@@ -64,7 +67,7 @@ const FilterProducts = () => {
           onChange={handlePriceChange}
           min={0}
           max={1000}
-          className="w-full h-2 bg-[#D0E3F2] rounded-lg appearance-none cursor-pointer"
+          className="w-full max-w-full   h-2 bg-[#D0E3F2] rounded-lg appearance-none cursor-pointer"
         />
         <div className="flex justify-between text-gray-600 mt-2">
           <span> &#8369;0</span>

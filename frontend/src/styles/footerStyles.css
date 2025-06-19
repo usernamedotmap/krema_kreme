@@ -1,0 +1,99 @@
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #fceef0;
+}
+
+.menu-container {
+  display: flex;
+  flex-wrap: nowrap;
+  width: 100%;
+  min-height: 100vh;
+  margin-top: 10%;
+}
+
+.left-panel {
+  width: 30%;
+  background: #f9d9d9;
+  padding: 20px;
+  border: 6px dashed #b38888;
+}
+
+.menu-panel {
+  width: 35%;
+  background: #ffeef0;
+  padding: 20px;
+  border: 6px dashed #b38888;
+  position: relative;
+}
+
+.logo {
+  max-width: 100px;
+  margin-bottom: 10px;
+}
+
+.desc, .note {
+  font-size: 0.9rem;
+  margin: 10px 0;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  font-size: 0.9rem;
+}
+
+.brands h4 {
+  margin-top: 20px;
+}
+
+.brand-icons img {
+  width: 40px;
+  margin: 5px;
+}
+
+.ribbon {
+  text-align: center;
+  font-weight: bold;
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+  background: #fff;
+  display: inline-block;
+  padding: 5px 20px;
+  border: 2px solid #000;
+}
+
+h3 {
+  margin-top: 15px;
+  font-size: 1.2rem;
+  border-bottom: 1px solid #aaa;
+}
+
+.item-list {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  margin-top: 10px;
+}
+
+.item {
+  text-align: center;
+  width: 100px;
+  margin: 10px;
+}
+
+.item img {
+  width: 80px;
+  height: auto;
+}
+
+.footer {
+  text-align: center;
+  font-size: 0.85rem;
+  margin-top: 30px;
+}
+
+.footer img {
+  width: 60px;
+  margin-bottom: 10px;
+}

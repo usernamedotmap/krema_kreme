@@ -27,12 +27,27 @@ export const postCartProduct = async (req, res) => {
       if (productIndex > -1) {
         cart.products[productIndex].quantity += Number(quantity);
       } else {
+        const selectedSize = product.sizes.find(
+          (s) => s.label === (typeof size === "object" ? size.label : size)
+        );
+
+        if (!selectedSize) {
+          return res.status(400).json({ message: "Invalid size selection" });
+        }
+
+        const finalPrice = product.price + (selectedSize?.additionalPrice || 0);
+
+        const sizeLabel = selectedSize.label;
+
         cart.products.push({
           productId,
           name: product.name,
           images: product.images,
-          price: product.price,
-          size,
+          price: finalPrice,
+          size: {
+            label: sizeLabel,
+            additionalPrice: selectedSize.additionalPrice || 0,
+          },
           quantity,
         });
       }
@@ -43,6 +58,17 @@ export const postCartProduct = async (req, res) => {
       await cart.save();
       return res.status(200).json(cart);
     } else {
+      const selectedSize = product.sizes.find(
+        (s) => s.label === (typeof size === "object" ? size.label : size)
+      );
+
+      if (!selectedSize) {
+        return res.status(400).json({ message: "Invalid size selection" });
+      }
+
+      const finalPrice = product.price + (selectedSize?.additionalPrice || 0);
+      const sizeLabel = selectedSize.label;
+
       const newCart = await Cart.create({
         user: userId ? userId : undefined,
         guestId: guestId ? guestId : "guest_" + new Date().getTime(),
@@ -51,12 +77,15 @@ export const postCartProduct = async (req, res) => {
             productId,
             name: product.name,
             images: product.images,
-            price: product.price,
-            size,
+            price: finalPrice,
+            size: {
+              label: sizeLabel,
+              additionalPrice: selectedSize.additionalPrice || 0,
+            },
             quantity,
           },
         ],
-        totalPrice: product.price * quantity,
+        totalPrice: finalPrice * quantity,
       });
       return res.status(201).json(newCart);
     }
@@ -70,7 +99,6 @@ export const postCartProduct = async (req, res) => {
 
 export const putCartProduct = async (req, res) => {
   const { quantity, productId, size, guestId, userId } = req.body;
-
   try {
     let cart = await getCart(userId, guestId);
 
@@ -79,9 +107,11 @@ export const putCartProduct = async (req, res) => {
         message: "Cart not found",
       });
 
-    const productIndex = cart.products.findIndex(
-      (p) => p.productId.toString() === productId && p.size === size
-    );
+    const sizeLabel = typeof size === "object" ? size.label : size;
+
+const productIndex = cart.products.findIndex(
+  (p) => p.productId.toString() === productId && p.size?.label === sizeLabel
+);
 
     if (productIndex > -1) {
       if (quantity > 0) {
@@ -110,8 +140,8 @@ export const putCartProduct = async (req, res) => {
 };
 
 export const deleteCartProduct = async (req, res) => {
-  const { productId, size, guestId, userId } = req.body;
-
+  const { productId, guestId, userId, size } = req.body;
+console.log("Fetching cart with:", { userId, guestId });
   try {
     let cart = await getCart(userId, guestId);
 
@@ -120,11 +150,14 @@ export const deleteCartProduct = async (req, res) => {
         message: "Cart not found",
       });
 
-    const productIndex = cart.products.findIndex(
-      (p) => p.productId === productId && p.size === size
-    );
+   const sizeLabel = typeof size === "object" ? size.label : size;
 
-    if (productIndex) {
+const productIndex = cart.products.findIndex(
+  (p) => p.productId.toString() === productId && p.size?.label === sizeLabel
+);
+
+
+    if (productIndex !== -1) {
       cart.products.splice(productIndex, 1);
 
       cart.totalPrice = cart.products.reduce(
@@ -171,23 +204,19 @@ export const getCartProduct = async (req, res) => {
 export const mergeCartProduct = async (req, res) => {
   const { guestId } = req.body;
 
- 
-
   try {
     const guestCart = await Cart.findOne({ guestId });
-    const userCart = await Cart.findOne({ user: req.user._id});
+    const userCart = await Cart.findOne({ user: req.user._id });
 
     // dito kapag yung hindi pa nakalogin is naglogin siya yung cart na nilagay niya is magsasama na kapag nakapag login na siya
-    if (guestCart) {
-      if (guestCart.products.length === 0) {
-        return res.status(400).json({
-          message: "Guest cart is empty",
-        });
-      }
+    if (guestCart && guestCart.products.length > 0) {
       if (userCart) {
+        // Merge guestCart into userCart
         guestCart.products.forEach((guestItem) => {
           const productIndex = userCart.products.findIndex(
-            (item) => item.productId.toString() === guestItem.productId.toString() && guestItem.size === item.size
+            (item) =>
+              item.productId.toString() === guestItem.productId.toString() &&
+              guestItem.size.label === item.size.label
           );
 
           if (productIndex > -1) {
@@ -203,28 +232,27 @@ export const mergeCartProduct = async (req, res) => {
         );
 
         await userCart.save();
+        await Cart.findOneAndDelete({ guestId }).catch((err) =>
+          console.log("Error deleting guest cart: ", err)
+        );
+        
 
-        try {
-          await Cart.findOneAndDelete({ guestId });
-        } catch (error) {
-          console.log("Error deleting guest cart: ", error);
-        }
-        res.status(200).json(userCart);
-      } else {
-        guestCart.user = req.user._id;
-
-      guestCart.guestId = undefined;
-      await guestCart.save();
-      res.status(200).json(guestCart);
-      }
-    } else {
-      if (userCart) {
         return res.status(200).json(userCart);
+      } else {
+        // Transfer guest cart to user
+        guestCart.user = req.user._id;
+        guestCart.guestId = undefined;
+        await guestCart.save();
+        return res.status(200).json(guestCart);
       }
-      res.status(400).json({
-        message: "Guest cart not found"
-      })
     }
+
+    // fallback handling
+    if (userCart) {
+      return res.status(200).json(userCart);
+    }
+
+    return res.status(400).json({ message: "Guest cart not found or empty" });
   } catch (error) {
     console.log(error);
     res.status(500).json({

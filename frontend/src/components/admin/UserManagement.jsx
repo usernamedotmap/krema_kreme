@@ -1,20 +1,28 @@
 import React, { useState } from "react";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import {
+  addUser,
+  deleteUser,
+  fetchUser,
+  updateUser,
+} from "../../redux/slices/adminSlice";
 
 const UserManagement = () => {
-  const users = [
-    {
-      _id: 1,
-      name: "Varus",
-      email: "example@gmail.com",
-      role: "admin",
-    },
-    {
-      _id: 2,
-      name: "Vayne",
-      email: "example@gmail.com",
-      role: "customer",
-    },
-  ];
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const { user } = useSelector((state) => state.auth);
+  const { users, loading, error } = useSelector((state) => state.admin);
+
+  useEffect(() => {
+    if (user && user.role !== "admin") {
+      navigate("/");
+    } else if (user && user.role === "admin") {
+      dispatch(fetchUser());
+    }
+  }, [user, navigate, dispatch]);
 
   const [formData, setFormData] = useState({
     name: "",
@@ -29,6 +37,8 @@ const UserManagement = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    dispatch(addUser(formData));
+
     setFormData({
       name: "",
       email: "",
@@ -38,12 +48,13 @@ const UserManagement = () => {
   };
 
   const handleRoleChange = (userId, newRole) => {
-    console.log({ id: userId, role: newRole });
+    dispatch(updateUser({ id: userId, role: newRole }));
+    dispatch(fetchUser());
   };
 
   const handleDeleteUser = (userId) => {
     if (window.confirm("U really want to delete this user?")) {
-        console.log("delete user Id", userId)
+      dispatch(deleteUser(userId));
     }
   };
 
@@ -51,6 +62,8 @@ const UserManagement = () => {
     <div className="max-w-7xl mx-auto p-6">
       <h2 className="text-2xl font-bold mb-4">User Management</h2>
 
+      {loading && <p>Loading ...</p>}
+      {error && <p>Error: {error} </p>}
       <div className="p-6 rounded-lg mb-6">
         <h3 className="text-lg font-bold mb-4">Add users </h3>
 
@@ -124,7 +137,10 @@ const UserManagement = () => {
           </thead>
           <tbody>
             {users.map((user) => (
-              <tr key={user._id} className="border-b hover:bg-gray-100">
+              <tr
+                key={user._id + user.role}
+                className="border-b hover:bg-gray-100"
+              >
                 <td className="p-4 font-medium text-gray-900 whitespace-nowrap">
                   {user.name}
                 </td>
