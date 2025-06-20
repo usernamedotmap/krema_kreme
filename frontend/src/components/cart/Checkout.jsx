@@ -5,6 +5,7 @@
   import { useEffect } from "react";
   import { createCheckout } from "../../redux/slices/checkoutSlice";
   import axios from "axios";
+import api from "../common/ExpiredToken";
 
   const Checkout = () => {
     const navigate = useNavigate();
@@ -83,8 +84,8 @@
 
     const handleFinalizedCheckout = async (checkoutId) => {
       try {
-        const response = await axios.post(
-          `${import.meta.env.VITE_BACKEND_URL}/checkout/${checkoutId}/finalize`,
+        const response = await api.post(
+          `/checkout/${checkoutId}/finalize`,
           {},
           {
             headers: {
@@ -201,6 +202,7 @@
                   type="tel"
                   value={shippingAddress.phone}
                   pattern="^\+639\d{9}$"
+                  placeholder="example... +6399093847584"
                   onChange={(e) =>
                     setShippingAddress({
                       ...shippingAddress,

@@ -2,7 +2,7 @@ import "dotenv/config";
 import path from "path";
 import express from "express";
 import cors from "cors";
-import cookieParser from 'cookie-parser'
+import cookieParser from "cookie-parser";
 import { connectDB } from "./db/connectToDB.js";
 import userRoutes from "./routes/userRoutes.js";
 import productRoutes from "./routes/productRoutes.js";
@@ -20,8 +20,13 @@ const app = express();
 const __dirname = path.resolve();
 
 app.use(express.json());
-app.use(cors());
-app.use(cookieParser())
+app.use(
+  cors({
+    origin: "http://localhost:5173",
+    credentials: true,
+  })
+);
+app.use(cookieParser());
 
 const PORT = process.env.PORT || 3000;
 
@@ -42,10 +47,10 @@ app.get("/", (req, res) => {
   res.send("WELcome to my life");
 });
 
-app.use(express.static(path.join(__dirname, "/front-end/dist")));
+app.use(express.static(path.join(__dirname, "/frontend/dist")));
 
 app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "front-end", "dist", "index.html"));
+  res.sendFile(path.join(__dirname, "frontend", "dist", "index.html"));
 });
 
 app.listen(PORT, () => {

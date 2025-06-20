@@ -11,6 +11,10 @@ import {
 
 const CartContext = ({ cart, userId, guestId }) => {
   const dispatch = useDispatch();
+  
+  console.log("cart to:", cart);
+  console.log("userid to", userId);
+  console.log("guestId to", guestId)
 
   const handleAddToCart = (productId, delta, quantity, size) => {
     const newQuantity = quantity + delta;

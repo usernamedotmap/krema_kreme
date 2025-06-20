@@ -15,5 +15,5 @@ route.put("/", putCartProduct);
 route.delete("/", deleteCartProduct);
 route.get("/", getCartProduct);
 route.post("/merge", protectRoutes, mergeCartProduct);
-
+  
 export default route;

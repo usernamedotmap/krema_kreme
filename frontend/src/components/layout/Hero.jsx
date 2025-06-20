@@ -6,7 +6,7 @@ const Hero = () => {
     <>
     <section className="relative ">
       <div className="w-full h-[300px] md:h-[600px] lg:h-[450px] object-cover">
-      <img src="" alt="" className="" />
+      {/* <img src="" alt="" className="" /> */}
       </div>  
 
       <div className="absolute inset-0 bg-[#E0D7F5] bg-opacity-70 flex items-center justify-center">

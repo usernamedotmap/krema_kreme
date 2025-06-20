@@ -9,7 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
 import { useEffect } from "react";
 import { fetchProductByFilters } from "../redux/slices/productSlice";
-import axios from "axios";
+import api from "../components/common/ExpiredToken";
 
 
 
@@ -27,8 +27,8 @@ const HomePage = () => {
     );
     const fetchBestProducts = async () => {
       try {
-        const response = await axios.get(
-          `${import.meta.env.VITE_BACKEND_URL}/products/best-seller`
+        const response = await api.get(
+          `/products/best-seller`
         );
         setBestDonutsProduct(response.data);
       } catch (error) {

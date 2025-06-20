@@ -14,12 +14,9 @@ export const fetchCart = createAsyncThunk(
   "cart/fetchCart",
   async ({ userId, guestId }, { rejectWithValue }) => {
     try {
-      const response = await api.get(
-        `/cart`,
-        {
-          params: { userId, guestId },
-        }
-      );
+      const response = await api.get(`/cart/`, {
+        params: { userId, guestId },
+      });
       return response.data;
     } catch (error) {
       console.log(error);
@@ -35,16 +32,14 @@ export const addToCart = createAsyncThunk(
     { rejectWithValue }
   ) => {
     try {
-      const response = await api.post(
-        `/cart`,
-        {
-          productId,
-          guestId,
-          size,
-          quantity,
-          userId,
-        }
-      );
+      const response = await api.post(`/cart`, {
+        productId,
+        quantity,
+        size,
+        guestId,
+        userId,
+      });
+
       return response.data;
     } catch (error) {
       console.log(error);
@@ -60,16 +55,13 @@ export const updatedCartItemQuantity = createAsyncThunk(
     { rejectWithValue }
   ) => {
     try {
-      const response = await api.put(
-        `/cart`,
-        {
-          guestId,
-          userId,
-          size,
-          quantity,
-          productId,
-        }
-      );
+      const response = await api.put(`/cart`, {
+        guestId,
+        userId,
+        size,
+        quantity,
+        productId,
+      });
       return response.data;
     } catch (error) {
       console.log(error);
@@ -82,17 +74,15 @@ export const removeFromCart = createAsyncThunk(
   "cart/removeFromCart",
   async ({ productId, guestId, userId, size }, { rejectWithValue }) => {
     try {
-      const response = await api.delete(
-        `/cart`,
-        {
-          data: {
-            productId,
-            guestId,
-            userId,
-            size,
-          },
-        }
-      );
+      const response = await api.delete(`/cart`, {
+        method: "DELETE",
+        data: {
+          productId,
+          guestId,
+          userId,
+          size,
+        },
+      });
       return response.data;
     } catch (error) {
       console.log(error);
@@ -134,9 +124,9 @@ const cartSlice = createSlice({
     error: null,
   },
   reducers: {
-    setGuestId: (state, action) => {
-      state.guestId = action.payload;
-    },
+    // setGuestId: (state, action) => {
+    //   state.guestId = action.payload;
+    // },
     clearCart: (state) => {
       state.cart = { products: [] };
       localStorage.removeItem("cart");
@@ -168,6 +158,7 @@ const cartSlice = createSlice({
         state.loading = false;
         state.cart = action.payload;
         saveCartToStorage(action.payload);
+        console.log("action sa fetchCart: ", action.payload);
       })
       .addCase(fetchCart.rejected, (state, action) => {
         state.loading = false;
@@ -211,7 +202,7 @@ const cartSlice = createSlice({
         state.loading = false;
         state.cart = action.payload;
         saveCartToStorage(action.payload);
-        console.log(action.payload)
+        console.log(action.payload);
       })
       .addCase(removeFromCart.rejected, (state, action) => {
         state.loading = false;
@@ -225,6 +216,7 @@ const cartSlice = createSlice({
       .addCase(mergeCart.fulfilled, (state, action) => {
         state.loading = false;
         state.cart = action.payload;
+        state.guestId = null;
         saveCartToStorage(action.payload);
       })
       .addCase(mergeCart.rejected, (state, action) => {

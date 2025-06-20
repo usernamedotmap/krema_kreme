@@ -54,7 +54,7 @@ const memoizedQuery = useMemo(() => ({collection, ...queryParams}), [collection,
         key={sidebarRef}
         className={`${
           isSidebarOpen ?  "translate-x-0" : "-translate-x-full"
-        } fixed inset-y-0 z-50 left-0 w-full sm:w-64 md:w-72 lg:w-80"
+        } fixed inset-y-0 z-50 left-0  sm:w-64 md:w-72 lg:w-80"
  overflow-y-auto bg-[#fceef0] transition-transform duration-300 lg:static lg:translate-x-0`}
       >
         <FilterProducts />

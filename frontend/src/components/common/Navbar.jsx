@@ -14,17 +14,30 @@ const Navbar = () => {
   const [navigationOpen, setNavigationOpen] = useState(false);
   const { cart } = useSelector((state) => state.cart);
   const { user } = useSelector((state) => state.auth);
-  const cartItemTotal =
-    cart?.products.reduce((total, product) => total + product.quantity, 0) || 0;
-  const dispatch = useDispatch();
-  const {guestId} = useSelector((state) => state.cart)
 
-useEffect(() => {
-  if (user?._id) {
-    dispatch(fetchCart({ userId: user._id, guestId }));
-  }
-}, [user, dispatch, guestId]);
 
+  
+  const cartItemCount = cart?.products?.reduce(
+    (total, product) => total + product.quantity,
+    0
+  );
+
+
+  // const isValidCart = (cart) =>
+  //   cart && Array.isArray(cart.products) && typeof cart.totalPrice === "number";
+
+  // const cartItemTotal = isValidCart(cart)
+  //   ? cart.products.reduce((acc, item) => acc + item.quantity, 0)
+  //   : 0;
+
+  // const dispatch = useDispatch();
+  // const { guestId } = useSelector((state) => state.cart);
+
+  // useEffect(() => {
+  //   if ((user?._id || guestId) && !cart?.products?.length === 0) {
+  //     dispatch(fetchCart({ userId: user?._id, guestId }));
+  //   }
+  // }, [user, dispatch, guestId, cart.products.length]);
 
   const toggleNavigation = () => {
     setNavigationOpen(!navigationOpen);
@@ -38,7 +51,7 @@ useEffect(() => {
       <nav className="bg-[#f4f0c6] w-full h-auto mx-auto flex items-center justify-between py-4 px-8">
         {/* logo */}
         <div className="pl-10">
-          <Link to="/" >
+          <Link to="/">
             <img
               src="/logo.png"
               alt="Logo"
@@ -90,9 +103,9 @@ useEffect(() => {
           </Link>
           <button onClick={toggleDrawer} className="relative hover:text-black">
             <CiShoppingCart className="size-6 hover:text-black" />
-            {cartItemTotal > 0 && (
+            {cartItemCount > 0 && (
               <span className="absolute -top-3 bg-red-500 text-white text-sm rounded-full px-2 py-0.5 ">
-                {cartItemTotal}
+                {cartItemCount}
               </span>
             )}
           </button>
@@ -129,21 +142,21 @@ useEffect(() => {
               HOME
             </Link>
             <Link
-              to="/collections/all?category=Top Wear"
+              to="/collections/all?category=Donuts"
               onClick={toggleNavigation}
               className="block text-gray-600 hover:text-black"
             >
               DONUTS
             </Link>
             <Link
-              to="/collections/all?category=Bottom Wear"
+              to="/collections/all?category=Drinks"
               onClick={toggleNavigation}
               className="block text-gray-600 hover:text-black"
             >
               DRINKS
             </Link>
             <Link
-              to="#"
+              to="/collections/all?category=Combo"
               onClick={toggleNavigation}
               className="block text-gray-600 hover:text-black"
             >
