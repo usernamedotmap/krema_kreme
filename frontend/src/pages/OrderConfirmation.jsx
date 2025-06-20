@@ -1,17 +1,23 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { clearCart } from "../redux/slices/cartSlice";
+import { clearCart, setGuestId } from "../redux/slices/cartSlice";
 
 const OrderConfirmation = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { checkout } = useSelector((state) => state.checkout);
-console.log("chekcout", checkout)
+  console.log("chekcout", checkout);
   useEffect(() => {
     if (checkout && checkout._id) {
       dispatch(clearCart());
       localStorage.removeItem("cart");
+      localStorage.removeItem("guestId");
+      if (!checkout.user) {
+        const newGuestId = `guest_${Date.now()}`;
+        localStorage.setItem("guestId", newGuestId);
+        dispatch(setGuestId(newGuestId));
+      }
     } else {
       navigate("/my-orders");
     }

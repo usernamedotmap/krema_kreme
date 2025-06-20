@@ -26,22 +26,21 @@ const DetailsProduct = ({ productId }) => {
 
   const productFetchId = productId || id;
   const basePrice = selectedProduct?.price || 0;
-const extra = selectedSize?.additionalPrice || 0;
-const finalPrice = basePrice + extra;
-
-
+  const extra =
+    typeof selectedSize === "object" ? selectedSize?.additionalPrice || 0 : 0;
+  const finalPrice = basePrice + extra;
 
   useEffect(() => {
-  if (productFetchId) {
-    dispatch(fetchProductDetails(productFetchId));
-  }
-}, [dispatch, productFetchId]);
+    if (productFetchId) {
+      dispatch(fetchProductDetails(productFetchId));
+    }
+  }, [dispatch, productFetchId]);
 
-useEffect(() => {
-  if (productFetchId) {
-    dispatch(fetchSimilarProducts({ id: productFetchId }));
-  }
-}, [dispatch, productFetchId]);
+  useEffect(() => {
+    if (productFetchId) {
+      dispatch(fetchSimilarProducts({ id: productFetchId }));
+    }
+  }, [dispatch, productFetchId]);
 
   useEffect(() => {
     if (selectedProduct?.images?.length > 0) {
@@ -105,7 +104,6 @@ useEffect(() => {
                   alt={product.altText || `Thumbnail ${index}`}
                   onClick={() => {
                     setSwitchImage(product.url);
-                    
                   }}
                   className={`w-20 h-20 object-cover rounded-lg cursor-pointer border ${
                     switchImage === product?.url

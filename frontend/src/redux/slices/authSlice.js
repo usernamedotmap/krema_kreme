@@ -64,10 +64,12 @@ const authSlice = createSlice({
       localStorage.removeItem("userToken");
       localStorage.setItem("guestId", state.guestId);
     },
-    generateNewGuestId: (state) => {
-      state.guestId = `guest_${new Date().getTime()}`;
-      localStorage.setItem("guestId", state.guestId);
-    },
+    
+    setGuestId: (state, action) => {
+  state.guestId = action.payload;
+  localStorage.setItem("guestId", action.payload);
+},
+
   },
   extraReducers: (builder) => {
     builder
@@ -98,5 +100,5 @@ const authSlice = createSlice({
   },
 });
 
-export const {logout, generateNewGuestId} = authSlice.actions;
+export const {logout, generateNewGuestId, setGuestId} = authSlice.actions;
 export default authSlice.reducer;

@@ -2,39 +2,16 @@ import React, { useEffect } from "react";
 import { IoCloseCircleOutline } from "react-icons/io5";
 import CartContext from "../cart/CartContext";
 import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { mergeCart, setGuestId } from "../../redux/slices/cartSlice";
+import { useSelector } from "react-redux";
 
 const CartLayout = ({ drawerOpen, toggleDrawer }) => {
   const navigate = useNavigate();
-  const { user, guestId } = useSelector((state) => state.cart);
+  const { user, guestId } = useSelector((state) => state.auth);
   const { cart } = useSelector((state) => state.cart);
   const userId = user ? user._id : null;
-  const dispatch = useDispatch();
 
-  useEffect(() => {
-    const storedCart = localStorage.getItem("cart");
-    const storedGuestId = localStorage.getItem("guestId");
-    const userToken = localStorage.getItem("userToken");
-    if (storedGuestId) {
-      dispatch(setGuestId(storedGuestId));
-    }
-
-    // Only use local cart if not logged in
-    if (!user && storedCart) {
-      try {
-        const parsedCart = JSON.parse(storedCart);
-        dispatch({ type: "cart/fetchCart/fulfilled", payload: parsedCart });
-      } catch (errror) {
-        console.error("Failed to parse stored cart", errror);
-      }
-    }
-
-    // If logged in and there's a guest cart, merge them
-    if (user && storedGuestId && userToken) {
-      dispatch(mergeCart({ guestId: storedGuestId, user }));
-    }
-  }, [dispatch, user]);
+  console.log("userId from cartLaoutout:", userId);
+  console.log("guestId from cartLaoutout:", guestId);
 
   const handleCheckout = () => {
     toggleDrawer();

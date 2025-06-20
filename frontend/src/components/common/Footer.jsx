@@ -141,7 +141,7 @@ const Footer = () => {
   <div className="menu-container">
     
     <div className="left-panel">
-      <img src="https://scontent.fmnl4-3.fna.fbcdn.net/v/t1.15752-9/496510690_1228784272071599_47544572011920674_n.png?stp=dst-png_s480x480&_nc_cat=109&ccb=1-7&_nc_sid=0024fc&_nc_eui2=AeHwYvBwpGtiS2GxTSUrDlEIlariywHbtgyVquLLAdu2DGbmqCsWdXWiREyH5-RSLjpZ417tOymk_zDk0ujJKPbq&_nc_ohc=kf2-tjEuTxAQ7kNvwHK88bC&_nc_oc=AdmK_FCTOnemltEskArlNYqQFSbU8BLP0fHP1KZgL7sk9r2TM3FozuXHiAE3kVGZl2LtjiL4qbQgDWMab0IRh1av&_nc_ad=z-m&_nc_cid=0&_nc_zt=23&_nc_ht=scontent.fmnl4-3.fna&oh=03_Q7cD2gEN2ngdegDdPvjdoFtI1qHrGrvu4bNfsebYCjjLX2sa8w&oe=687203FB" alt="Logo" class="logo" />
+      <img src="https://scontent.fmnl4-3.fna.fbcdn.net/v/t1.15752-9/496510690_1228784272071599_47544572011920674_n.png?stp=dst-png_s480x480&_nc_cat=109&ccb=1-7&_nc_sid=0024fc&_nc_eui2=AeHwYvBwpGtiS2GxTSUrDlEIlariywHbtgyVquLLAdu2DGbmqCsWdXWiREyH5-RSLjpZ417tOymk_zDk0ujJKPbq&_nc_ohc=kf2-tjEuTxAQ7kNvwHK88bC&_nc_oc=AdmK_FCTOnemltEskArlNYqQFSbU8BLP0fHP1KZgL7sk9r2TM3FozuXHiAE3kVGZl2LtjiL4qbQgDWMab0IRh1av&_nc_ad=z-m&_nc_cid=0&_nc_zt=23&_nc_ht=scontent.fmnl4-3.fna&oh=03_Q7cD2gEN2ngdegDdPvjdoFtI1qHrGrvu4bNfsebYCjjLX2sa8w&oe=687203FB" alt="Logo" className="logo" />
       <p className="desc">
         Hunger Halt and other Group Inc.-affiliated companies own the trademarks, logos and service marks 
 		displayed on this site and users are prohibited from using the same without permission 
@@ -219,7 +219,7 @@ const Footer = () => {
 
       <div className="promos">
         <h3>HOLIDAY PROMOS</h3>
-        <div clclassNamess="item-list">
+        <div className="item-list">
           <div className="item">
             <img src="https://scontent.fmnl4-4.fna.fbcdn.net/v/t1.15752-9/495076179_1741143397284590_4130859430672784682_n.png?stp=dst-png_s480x480&_nc_cat=102&ccb=1-7&_nc_sid=0024fc&_nc_eui2=AeHfTJRkuJaH9tlptfh9dDPspB_4UyMv51ekH_hTIy_nV-qklwwk_wquqFSO6yLZGMsIPgrfZySYRhhVJ8VnMVe4&_nc_ohc=j_oqPCtEy5MQ7kNvwE2izDw&_nc_oc=AdkPGUmDtWbTWYtqo910Bj1k9QpZmdrEM2G1ykEEk7bzS9CvwlC_a5MbKCx7QiQrakx6s3n7rhwe69kPcbKIlIYJ&_nc_ad=z-m&_nc_cid=0&_nc_zt=23&_nc_ht=scontent.fmnl4-4.fna&oh=03_Q7cD2gFAzzfChHph7ZhIyE6VCa0JqcZ30c9CABch04bGB5M17Q&oe=68720288" />
             <p>Double Dozen Original Glazed® Doughnuts</p>

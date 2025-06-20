@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { loginUser } from "../redux/slices/authSlice";
+import { loginUser, setGuestId } from "../redux/slices/authSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { mergeCart } from "../redux/slices/cartSlice";
+import { clearCart, mergeCart } from "../redux/slices/cartSlice";
 const Login = () => {
   const [formData, setFormData] = useState({
     email: "",
@@ -18,22 +18,55 @@ const Login = () => {
   const redirect = new URLSearchParams(location.search).get("redirect") || "/";
   const isCheckoutRedirect = redirect.includes("checkout");
 
+    console.log("cart to:", cart);
+  console.log("userid to", user);
+  console.log("guestId to", guestId)
+
+
   useEffect(() => {
     if (user) {
-      if (cart?.products.length > 0 && guestId) {
-        dispatch(mergeCart({ guestId, user })).then(() =>
+     if (Array.isArray(cart?.products) && cart.products.length > 0 && guestId) {
+        dispatch(mergeCart({guestId, user})).then(() => {
           navigate(isCheckoutRedirect ? "/checkout" : "/")
-        );
+        })
       } else {
-        navigate(isCheckoutRedirect ? "/checkout" : "/");
+        navigate(isCheckoutRedirect ? "/checkout" : "/")
       }
     }
-  }, [user, guestId, cart, navigate, isCheckoutRedirect, dispatch]);
+  }, [user, guestId, cart, navigate, isCheckoutRedirect, dispatch])
+
+  // useEffect(() => {
+  //   if (user) {
+  //     if (cart?.products.length > 0 && guestId) {
+  //       console.log("🧾 guestId:", guestId);
+  //       console.log("🛒 cart from Redux:", cart);
+  //       console.log("📦 cart in localStorage:", localStorage.getItem("cart"));
+
+  //       dispatch(mergeCart({ guestId, user })).then(() =>
+  //         navigate(isCheckoutRedirect ? "/checkout" : "/")
+  //       );
+  //     } else {
+  //       navigate(isCheckoutRedirect ? "/checkout" : "/");
+  //     }
+  //   }
+  // }, [user, guestId, cart, navigate, isCheckoutRedirect, dispatch]);
+
+  // useEffect(() => {
+  //   if (user) {
+  //     if (cart?.products.length > 0 && guestId) {
+  //       dispatch(mergeCart({ guestId, user })).then(() =>
+  //         navigate(isCheckoutRedirect ? "/checkout" : "/")
+  //       );
+  //     } else {
+  //       navigate(isCheckoutRedirect ? "/checkout" : "/");
+  //     }
+  //   }
+  // }, [user, guestId, cart, navigate, isCheckoutRedirect, dispatch]);
+
 
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(loginUser({ ...formData }));
-    
   };
   return (
     <div className="flex">
@@ -85,7 +118,10 @@ const Login = () => {
           </button>
           <p className="mt-6 text-center text-md text-gray-700">
             Don{"'"}t have an account?{" "}
-            <Link to={`/register?redirect=${encodeURIComponent("redirect")}`} className="text-blue-500">
+            <Link
+              to={`/register?redirect=${encodeURIComponent("redirect")}`}
+              className="text-blue-500"
+            >
               Register
             </Link>
           </p>

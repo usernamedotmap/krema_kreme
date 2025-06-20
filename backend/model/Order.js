@@ -21,7 +21,16 @@ const OrderItemSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    size: String,
+    size: {
+      label: {
+        type: String,
+        required: true,
+      },
+      additionalPrice: {
+        type: Number,
+        default: 0,
+      },
+    },
     quantity: {
       type: Number,
       required: true,
