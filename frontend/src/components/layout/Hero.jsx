@@ -12,7 +12,7 @@ const Hero = () => {
       <div className="absolute inset-0 bg-[#E0D7F5] bg-opacity-70 flex items-center justify-center">
         <div className="text-black text-center p-6">
           {/* probably yung title nalang dito la ako maisip */}
-          <h1 className="text-4xl md:text-9xl tracking-tighter uppercase mb-4">
+          <h1 className="text-4xl md:text-9xl tracking-tighter uppercase mb-4 hero">
             HUNGER <br /> HALT
           </h1>
           <Link

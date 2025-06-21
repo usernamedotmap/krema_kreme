@@ -21,7 +21,7 @@ const Register = () => {
     const isCheckoutRedirect = redirect.includes("checkout");
   
     useEffect(() => {
-      if (user) {
+      if (Array.isArray(cart?.products) && cart.products.length > 0 && guestId) {
         if (cart?.products.length > 0 && guestId) {
           dispatch(mergeCart({ guestId, user })).then(() =>
             navigate(isCheckoutRedirect ? "/checkout" : "/")

@@ -9,7 +9,7 @@ body {
   flex-wrap: nowrap;
   width: 100%;
   min-height: 100vh;
-  margin-top: 10%;
+  margin-top: 5px;
 }
 
 .left-panel {

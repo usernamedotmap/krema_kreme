@@ -1,9 +1,9 @@
 const products = [
   {
-    name: "Springkle shimmering",
-    description: "This classic Donut can make u melt.",
+    name: "Galaxy Glaze",
+    description: "Chocolate donut with colorful sprinkles and icing",
     price: 30.0,
-    discountPrice: 25.99,
+    discountPrice: 25.00,
     sku: "SPR-DON-001",
     category: "Donuts",
     sizes: [
@@ -14,7 +14,7 @@ const products = [
     images: [
       {
         url: "/11.png",
-        altText: "Springkle shimmering",
+        altText: "Galaxy Glaze",
       },
     ],
     rating: 4.5,
@@ -22,10 +22,10 @@ const products = [
     tags: ["Donuts"],
   },
   {
-    name: "Red Velvet",
-    description: "A talented donut like a kpop group",
-    price: 33.5,
-    discountPrice: 30.99,
+    name: "Velvet Dust ",
+    description: "Red Velvet donut with cream cheese filling and powdered sugar",
+    price: 35.00,
+    discountPrice: 30.00,
     sku: "RED-DON-002",
     category: "Donuts",
     sizes: [
@@ -36,7 +36,7 @@ const products = [
     images: [
       {
         url: "/12.png",
-        altText: "Red Velvet",
+        altText: "Velvet Dust",
       },
      
     ],
@@ -45,10 +45,10 @@ const products = [
     tags: ["Donuts"],
   },
   {
-    name: "Chocnig donut",
-    description: "Black donut that make  u dark",
+    name: "Cocoa Puff Bomb",
+    description: "Chocolate-filled donut with sugar coating",
     price: 26.47,
-    discountPrice: 23.99,
+    discountPrice: 25.00,
     sku: "CHO-DON-003",
     category: "Donuts",
     sizes: [
@@ -59,7 +59,7 @@ const products = [
     images: [
       {
         url: "/13.png",
-        altText: "Chocnig donut",
+        altText: "Cocoa Puff Bomb",
       },
     ],
     rating: 4.2,
@@ -67,10 +67,10 @@ const products = [
     tags: ["Donuts"],
   },
   {
-    name: "Cheeezyy uck donut",
-    description: "Yellowish donut filling same as urine",
+    name: "Cheese Cloud Puff",
+    description: "Donut with Cheesy filling and sugar on top",
     price: 22.99,
-    discountPrice: 19.5,
+    discountPrice: 20.00,
     sku: "CHE-DON-004",
     category: "Donuts",
     sizes: [
@@ -81,7 +81,7 @@ const products = [
     images: [
       {
         url: "/14.png",
-        altText: "Cheeezyy uck donut",
+        altText: "Cheese Puff Bomb",
       },
     ],
     rating: 4.0,
@@ -89,10 +89,10 @@ const products = [
     tags: ["Donuts"],
   },
   {
-    name: "Creaamyy maja cheez",
-    description: "Delicacy donut",
-    price: 22.99,
-    discountPrice: 19.5,
+    name: "Snowburst Ring",
+    description: "Vanilla custard-filled donut with powdered sugar",
+    price: 22.00,
+    discountPrice: 19.00,
     sku: "CRE-DON-005",
     category: "Donuts",
     sizes: [
@@ -103,7 +103,7 @@ const products = [
     images: [
       {
         url: "/15.png",
-        altText: "Creaamyy maja cheez",
+        altText: "Snowburst Ring",
       },
     ],
     rating: 4.0,
@@ -111,10 +111,10 @@ const products = [
     tags: ["Donuts"],
   },
   {
-    name: "litchi cream plant",
-    description: "Cliche donut",
+    name: "Golden Glimmer",
+    description: "Classic glazed donut with a soft, buttery taste.",
     price: 24.5,
-    discountPrice: 21.5,
+    discountPrice: 21.00,
     sku: "LIT-DON-006",
     category: "Donuts",
     sizes: [
@@ -125,7 +125,7 @@ const products = [
     images: [
       {
         url: "/16.png",
-        altText: "litchi cream plant",
+        altText: "Golden Grimmer",
       },
     ],
     rating: 4.1,
@@ -133,9 +133,9 @@ const products = [
     tags: ["Donuts"],
   },
   {
-    name: "Springle choklet syrup",
-    description: "Jaguar pattern stripes",
-    price: 35.99,
+    name: "Choco Fireworks",
+    description: "Chocolate donut with icing drizzele and rainbow sprinkles",
+    price: 35.00,
     discountPrice: 36.7,
     sku: "SPR-DON-007",
     category: "Donuts",
@@ -147,7 +147,7 @@ const products = [
     images: [
       {
         url: "/17.png",
-        altText: "Springle choklet syrup",
+        altText: "Choco Fireworks",
       },
     ],
     rating: 4.9,
@@ -155,9 +155,9 @@ const products = [
     tags: ["Donuts"],
   },
   {
-    name: "Blacky cream stick",
-    description: "Pure Chocolate Donut",
-    price: 30.2,
+    name: "Midnight Melt",
+    description: "Dark chocolate donut with a rich, moist texture.",
+    price: 30.00,
     discountPrice: 28.7,
     sku: "BLA-DON-008",
     category: "Donuts",
@@ -169,7 +169,7 @@ const products = [
     images: [
       {
         url: "/18.png",
-        altText: "Blacky cream stick",
+        altText: "Midnight Melt",
       },
     ],
     rating: 4.5,
@@ -177,9 +177,9 @@ const products = [
     tags: ["Donuts"],
   },
   {
-    name: "Strawberry rainy springkle",
-    description: "Strawberry & Cigarettes they always taste like u",
-    price: 39.99,
+    name: "Pinky Party Splash",
+    description: "Strawberry donut with pink glaze and sprinkles",
+    price: 39.00,
     discountPrice: 37.5,
     sku: "STR-DON-009",
     category: "Donuts",
@@ -191,7 +191,7 @@ const products = [
     images: [
       {
         url: "/19.png",
-        altText: "Strawberry rainy springkle",
+        altText: "Pink Party Splash",
       },
     ],
     rating: 4.7,
@@ -199,9 +199,9 @@ const products = [
     tags: ["Donuts"],
   },
   {
-    name: "Chucky road chocolate",
-    description: "Chocolate Classic rocky roll ",
-    price: 36.99,
+    name: "Rocky Crave Deluxe",
+    description: "Chocolate donut with fudge, marshmallows, and nuts ",
+    price: 36.00,
     discountPrice: 34.2,
     sku: "CHU-DON-010",
     category: "Donuts",
@@ -213,7 +213,7 @@ const products = [
     images: [
       {
         url: "/20.png",
-        altText: "Chucky road chocolate",
+        altText: "Rocky Crave Deluxe",
       },
     ],
     rating: 4.6,
@@ -221,10 +221,10 @@ const products = [
     tags: ["Donuts"],
   },
   {
-    name: "Muffle creamiest",
-    description: "Cake Style Donut ",
+    name: "Golden Honey Glaze",
+    description: "Donut with sweet honey glaze and a fluffy texture. ",
     price: 42.8,
-    discountPrice: 39.99,
+    discountPrice: 39.00,
     sku: "MUF-DON-011",
     category: "Donuts",
     sizes: [
@@ -235,7 +235,7 @@ const products = [
     images: [
       {
         url: "/21.png",
-        altText: "Muffle creamiest",
+        altText: "Golden Honey Glaze",
       },
     ],
     rating: 4.9,
@@ -243,14 +243,14 @@ const products = [
     tags: ["Donuts"],
   },
 
-  // DRINKS
+  // COMBO
   {
     name: "Lattee creamy",
     description: "Latee drink wakey wakey ",
     price: 75.3,
     discountPrice: 70.99,
     sku: "LAT-DRI-002",
-    category: "Drinks",
+    category: "Combo",
     sizes: [
       { label: "S", additionalPrice: 0 },
       { label: "M", additionalPrice: 30 },
@@ -264,7 +264,7 @@ const products = [
     ],
     rating: 4.6,
     numReviews: 18,
-    tags: ["Drinks"],
+    tags: ["Combo"],
   },
   {
     name: "Mango ice",
@@ -272,7 +272,7 @@ const products = [
     price: 71.8,
     discountPrice: 68.99,
     sku: "MAN-DRI-003",
-    category: "Drinks",
+    category: "Combo",
     sizes: [
       { label: "S", additionalPrice: 0 },
       { label: "M", additionalPrice: 30 },
@@ -286,7 +286,7 @@ const products = [
     ],
     rating: 4.2,
     numReviews: 10,
-    tags: ["Drinks"],
+    tags: ["Combo"],
   },
   {
     name: "Frappee 2 shots",
@@ -294,7 +294,7 @@ const products = [
     price: 80.50,
     discountPrice: 78.99,
     sku: "FRA-DRI-004",
-    category: "Drinks",
+    category: "Combo",
     sizes: [
       { label: "S", additionalPrice: 0 },
       { label: "M", additionalPrice: 30 },
@@ -308,7 +308,7 @@ const products = [
     ],
     rating: 4.9,
     numReviews: 30,
-    tags: ["Drinks"],
+    tags: ["Combo"],
   },
 
   // COMBO
@@ -445,7 +445,120 @@ const products = [
     tags: ["Combo"],
   },
 
+  // DRINKS
 
+  {
+    name: "Frozen Strawberry lemonade",
+    description: "Our delightful frozen strawberry lemonade a perfect blend sweet strawberries and lemon",
+    price: 120.00,
+    discountPrice: 110.00,
+    sku: "ASR-CMO-086",
+    category: "Drinks",
+    sizes: [
+      { label: "S", additionalPrice: 0 },
+      { label: "M", additionalPrice: 15 },
+      { label: "L", additionalPrice: 30 },
+    ],
+    images: [
+      {
+        url: "/26.jpg",
+        altText: "Frozen Strawberry lemonade",
+      },
+    ],
+    rating: 4.8,
+    numReviews: 60,
+    tags: ["Drinks"],
+  },
+
+{
+    name: "Frozen Original Lemonade",
+    description: "Our classic frozen original lemonade: blended ice with lemon",
+    price: 120.00,
+    discountPrice: 115,
+    sku: "ASR-CMO-087",
+    category: "Drinks",
+    sizes: [
+      { label: "S", additionalPrice: 0 },
+      { label: "M", additionalPrice: 15 },
+      { label: "L", additionalPrice: 30 },
+    ],
+    images: [
+      {
+        url: "/23.jpg",
+        altText: "Frozen Original Lemonade",
+      },
+    ],
+    rating: 4.8,
+    numReviews: 60,
+    tags: ["Drinks"],
+  },
+
+{
+    name: "Signature Kaffe Creme",
+    description: "Our signature kaffe creme: a rich and creamy iced coffee with sweet cream",
+    price: 120.00,
+    discountPrice: 115,
+    sku: "ASR-CMO-088",
+    category: "Drinks",
+    sizes: [
+      { label: "S", additionalPrice: 0 },
+      { label: "M", additionalPrice: 15 },
+      { label: "L", additionalPrice: 30 },
+    ],
+    images: [
+      {
+        url: "/27.jpg",
+        altText: "Signature kaffe Creme",
+      },
+    ],
+    rating: 4.8,
+    numReviews: 60,
+    tags: ["Drinks"],
+  },
+{
+    name: "Mocha Chill",
+    description: "Our Mocha Chiil: Blended coffee mocha, topped with whipped cream and chocolate drizzles",
+    price: 120.00,
+    discountPrice: 115,
+    sku: "ASR-CMO-089",
+    category: "Drinks",
+    sizes: [
+      { label: "S", additionalPrice: 0 },
+      { label: "M", additionalPrice: 15 },
+      { label: "L", additionalPrice: 30 },
+    ],
+    images: [
+      {
+        url: "/24.jpg",
+        altText: "Mocha Chill",
+      },
+    ],
+    rating: 4.8,
+    numReviews: 60,
+    tags: ["Drinks"],
+  },
+{
+    name: "Plain White",
+    description: "A classic iced coffee with steamed milk",
+    price: 120.00,
+    discountPrice: 115,
+    sku: "ASR-CMO-090",
+    category: "Drinks",
+    sizes: [
+      { label: "S", additionalPrice: 0 },
+      { label: "M", additionalPrice: 15 },
+      { label: "L", additionalPrice: 30 },
+    ],
+    images: [
+      {
+        url: "/22.jpg",
+        altText: "Plain White",
+      },
+    ],
+    rating: 4.8,
+    numReviews: 60,
+    tags: ["Drinks"],
+  },
 
 ];
 
