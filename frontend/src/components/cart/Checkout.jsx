@@ -16,7 +16,12 @@ const Checkout = () => {
     cart?.guestCart?.products ||
     [];
 
-  const totalPrice = cart?.totalPrice || cart?.userCart?.totalPrice || 0;
+  const totalPrice =
+  cart?.totalPrice ||
+  cart?.userCart?.totalPrice ||
+  cart?.guestCart?.totalPrice ||
+  0;
+
   const { user } = useSelector((state) => state.auth);
 
   const [checkoutId, setCheckoutId] = useState(null);

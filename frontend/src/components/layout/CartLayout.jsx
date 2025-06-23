@@ -60,7 +60,7 @@ const CartLayout = ({ drawerOpen, toggleDrawer }) => {
               Check Out
             </button>
             <p className="text-sm text-center tracking-tighter text-gray-500 mt-2">
-              Please, Please, Please. Don't prove I'm right
+            
             </p>
           </>
         )}

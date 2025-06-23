@@ -17,11 +17,14 @@ const Navbar = () => {
 
   
 const productList =
-  Array.isArray(cart?.products) && cart.products.length > 0
+   Array.isArray(cart?.products) && cart.products.length > 0
     ? cart.products
     : Array.isArray(cart?.userCart?.products)
     ? cart.userCart.products
+    : Array.isArray(cart?.guestCart?.products)
+    ? cart.guestCart.products
     : [];
+
 
 const cartItemCount = productList.reduce(
   (total, product) => total + product.quantity, 

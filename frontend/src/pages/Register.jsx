@@ -51,9 +51,9 @@ const Register = () => {
           className="w-full max-w-md bg-white p-8 rounded-lg  border-2  shadow-lg"
         >
           <div className="flex justify-center mb-6">
-            <h2 className="text-xl font-medium">Krema Kreme</h2>
+            <h2 className="text-xl font-medium">Hunger Halt</h2>
           </div>
-          <h2 className="text-2xl font-bold text-center mb-6 ">HeeeLUU</h2>
+          <h2 className="text-2xl font-bold text-center mb-6 ">Create account</h2>
           <p className="text-center mb-6">Try to register</p>
 
           <div className="mb-4">

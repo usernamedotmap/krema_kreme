@@ -29,7 +29,7 @@ const AdminSidebar = () => {
       </div>
 
       <h2 className="text-2xl font-medium my-8 text-center">
-        Admin dashboard ngani
+        Admin Dashboard
       </h2>
 
       <nav className="flex flex-col space-y-2">
