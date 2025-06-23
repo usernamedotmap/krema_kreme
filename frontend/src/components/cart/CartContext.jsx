@@ -16,6 +16,12 @@ const CartContext = ({ cart, userId, guestId }) => {
   console.log("userid to", userId);
   console.log("guestId to", guestId)
 
+  const products = Array.isArray(cart?.products)
+  ? cart.products
+  : Array.isArray(cart?.userCart?.products)
+  ? cart.userCart.products
+  : [];
+
   const handleAddToCart = (productId, delta, quantity, size) => {
     const newQuantity = quantity + delta;
     if (newQuantity >= 1) {
@@ -47,7 +53,7 @@ const CartContext = ({ cart, userId, guestId }) => {
 
   return (
     <div className="">
-      {cart.products.map((product, index) => (
+      {products.map((product, index) => (
         <div
           key={index}
           className="flex items-start justify-between py-4 border-b border-gray-300"

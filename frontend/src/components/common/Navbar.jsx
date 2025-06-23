@@ -15,13 +15,26 @@ const Navbar = () => {
   const { cart } = useSelector((state) => state.cart);
   const { user } = useSelector((state) => state.auth);
 
-
   
-  const cartItemCount = cart?.products?.reduce(
-    (total, product) => total + product.quantity,
-    0
-  );
+const productList =
+  Array.isArray(cart?.products) && cart.products.length > 0
+    ? cart.products
+    : Array.isArray(cart?.userCart?.products)
+    ? cart.userCart.products
+    : [];
 
+const cartItemCount = productList.reduce(
+  (total, product) => total + product.quantity, 
+  0
+);
+
+ 
+  // const cartItemCount = cart?.products?.reduce(
+  //   (total, product) => total + product.quantity,
+  //   0
+  // );
+
+console.log("Cart in Navbar:", cart, "Item Count:", cartItemCount);
 
   // const isValidCart = (cart) =>
   //   cart && Array.isArray(cart.products) && typeof cart.totalPrice === "number";

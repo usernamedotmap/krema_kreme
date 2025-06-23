@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { clearCart, setGuestId } from "../redux/slices/cartSlice";
+import { clearCart, fetchCart, setGuestId } from "../redux/slices/cartSlice";
 
 const OrderConfirmation = () => {
   const dispatch = useDispatch();
@@ -17,6 +17,7 @@ const OrderConfirmation = () => {
         const newGuestId = `guest_${Date.now()}`;
         localStorage.setItem("guestId", newGuestId);
         dispatch(setGuestId(newGuestId));
+        dispatch(fetchCart({ guestId: newGuestId }));
       }
     } else {
       navigate("/my-orders");
@@ -26,7 +27,7 @@ const OrderConfirmation = () => {
   const estimatedDelivery = (createdAt) => {
     const orderDate = new Date(createdAt);
 
-    orderDate.setHours(orderDate.getHours() + 100);
+    orderDate.setHours(orderDate.getHours() + 1);
 
     return orderDate.toLocaleString("en-PH", {
       dateStyle: "medium",
@@ -37,7 +38,7 @@ const OrderConfirmation = () => {
   return (
     <div className="max-w-4xl mx-auto p-6 bg-white ">
       <h1 className="text-4xl font-bold text-center text-emerald-700 mb-8 capitalize">
-        Thank you for ordering! hihihi
+        Thank you for ordering! {"<"}3
       </h1>
 
       {checkout && (

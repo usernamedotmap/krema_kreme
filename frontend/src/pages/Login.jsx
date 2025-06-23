@@ -18,13 +18,7 @@ const Login = () => {
   const redirect = new URLSearchParams(location.search).get("redirect") || "/";
   const isCheckoutRedirect = redirect.includes("checkout");
 
-  console.log("cart to:", cart);
-  console.log("userid to", user);
-  console.log("guestId to", guestId);
-  console.log("redict to", redirect);
-  console.log("isCheckoutRedirect to", isCheckoutRedirect);
-  console.log("Location search:", location.search);
-  console.log("Resolved redirect:", redirect);
+  
 
   useEffect(() => {
     if (user) {
@@ -77,17 +71,7 @@ const Login = () => {
   //   }
   // }, [user, guestId, cart, navigate, isCheckoutRedirect, dispatch]);
 
-  // useEffect(() => {
-  //   if (user) {
-  //     if (cart?.products.length > 0 && guestId) {
-  //       dispatch(mergeCart({ guestId, user })).then(() =>
-  //         navigate(isCheckoutRedirect ? "/checkout" : "/")
-  //       );
-  //     } else {
-  //       navigate(isCheckoutRedirect ? "/checkout" : "/");
-  //     }
-  //   }
-  // }, [user, guestId, cart, navigate, isCheckoutRedirect, dispatch]);
+ 
 
   return (
     <div className="flex">

@@ -10,10 +10,15 @@ const Checkout = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { cart, loading, error } = useSelector((state) => state.cart);
-  const mergedProducts = cart?.products || cart?.userCart?.products || [];
+  const mergedProducts =
+    cart?.products ||
+    cart?.userCart?.products ||
+    cart?.guestCart?.products ||
+    [];
+
   const totalPrice = cart?.totalPrice || cart?.userCart?.totalPrice || 0;
   const { user } = useSelector((state) => state.auth);
-  
+
   const [checkoutId, setCheckoutId] = useState(null);
   const [shippingAddress, setShippingAddress] = useState({
     firstName: "",
@@ -34,13 +39,8 @@ const Checkout = () => {
     "Pasay",
   ];
 
-  useEffect(() => {
-    console.log("cart from chekcout:", cart);
-    console.log("user from checkout:", user);
-
-    console.log("Checkout component mounted");
-  }, [cart, user]);
-
+  console.log("cart from checkout:", cart);
+  console.log("mergedProducts from checkout:", mergedProducts);
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (mergedProducts.length > 0) {
@@ -107,7 +107,7 @@ const Checkout = () => {
   if (loading) return <p>Loading cart ...</p>;
   if (error) return <p>Error: {error}</p>;
   if (mergedProducts.length === 0) {
-    return <p>Your cart is empty</p>;
+    return <p className="text-red-500 text-center text-xl font-bold">Your cart is empty</p>;
   }
 
   return (
