@@ -1,4 +1,3 @@
-import React, { useEffect } from "react";
 import { IoCloseCircleOutline } from "react-icons/io5";
 import CartContext from "../cart/CartContext";
 import { useNavigate } from "react-router-dom";
@@ -42,7 +41,7 @@ const CartLayout = ({ drawerOpen, toggleDrawer }) => {
         {cart && cart?.products?.length > 0 ? (
           <CartContext cart={cart} userId={userId} guestId={guestId} />
         ) : (
-          <p>Your cart is empty po 😘</p>
+          <p>Your cart is empty :{"("}</p>
         )}
       </div>
 
@@ -53,7 +52,7 @@ const CartLayout = ({ drawerOpen, toggleDrawer }) => {
               onClick={handleCheckout}
               className="w-full bg-black text-white py-3 rounded-lg font-semibold hover:bg-gray-800"
             >
-              CheckmeOut
+              Check Out
             </button>
             <p className="text-sm text-center tracking-tighter text-gray-500 mt-2">
               Please, Please, Please. Don't prove I'm right

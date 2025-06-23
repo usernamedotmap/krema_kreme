@@ -8,6 +8,9 @@ const OrderPage = () => {
   const dispatch = useDispatch();
   const { orders, loading, error } = useSelector((state) => state.orders);
 
+  console.log("orders:", orders);
+
+
   useEffect(() => {
     dispatch(fetchUserOrders());
   }, [dispatch]);

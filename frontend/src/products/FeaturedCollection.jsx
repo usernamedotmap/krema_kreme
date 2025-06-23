@@ -19,7 +19,7 @@ const FeaturedCollection = () => {
             Haplos mo'y ramdam pa rin sa dilim.
           </p>
           <Link
-            to="/collection/all"
+            to="/collections/all"
             className="bg-black text-white px-6 py-3 rounded-lg text-lg hover:bg-gray-800"
           >
             Order Now

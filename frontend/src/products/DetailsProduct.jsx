@@ -16,7 +16,7 @@ const DetailsProduct = ({ productId }) => {
   const { id } = useParams();
   const dispatch = useDispatch();
   const { selectedProduct, loading, error } = useSelector(
-    (state) => state.productsy
+    (state) => state.products
   );
   const { user, guestId } = useSelector((state) => state.auth);
   const [switchImage, setSwitchImage] = useState("");

@@ -5,15 +5,15 @@ import NewDonuts from "../products/NewDonuts";
 import DetailsProduct from "../products/DetailsProduct";
 import ProductGrid from "../products/ProductGrid";
 import FeaturedCollection from "../products/FeaturedCollection";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useState } from "react";
 import { useEffect } from "react";
 import { fetchProductByFilters } from "../redux/slices/productSlice";
 import api from "../components/common/ExpiredToken";
+import Footer from "../components/common/Footer";
 
 const HomePage = () => {
   const dispatch = useDispatch();
-  const { products, loading, error } = useSelector((state) => state.products);
   const [bestDonutsProduct, setBestDonutsProduct] = useState([]);
 
   useEffect(() => {
@@ -54,6 +54,7 @@ const HomePage = () => {
       {/* <ProductGrid products={products} loading={loading} error={error} /> */}
 
       {/* <FeaturedCollection /> */}
+      <Footer />
     </div>
   );
 };

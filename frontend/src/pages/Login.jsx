@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import  { useState, useEffect } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { loginUser, setGuestId } from "../redux/slices/authSlice";
+import { loginUser } from "../redux/slices/authSlice";
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
-import { clearCart, mergeCart } from "../redux/slices/cartSlice";
+import {  mergeCart } from "../redux/slices/cartSlice";
+import { toast } from "sonner";
 const Login = () => {
   const [formData, setFormData] = useState({
     email: "",
@@ -18,22 +18,48 @@ const Login = () => {
   const redirect = new URLSearchParams(location.search).get("redirect") || "/";
   const isCheckoutRedirect = redirect.includes("checkout");
 
-    console.log("cart to:", cart);
+  console.log("cart to:", cart);
   console.log("userid to", user);
-  console.log("guestId to", guestId)
-
+  console.log("guestId to", guestId);
+  console.log("redict to", redirect);
+  console.log("isCheckoutRedirect to", isCheckoutRedirect);
+  console.log("Location search:", location.search);
+  console.log("Resolved redirect:", redirect);
 
   useEffect(() => {
     if (user) {
-     if (Array.isArray(cart?.products) && cart.products.length > 0 && guestId) {
-        dispatch(mergeCart({guestId, user})).then(() => {
-          navigate(isCheckoutRedirect ? "/checkout" : "/")
-        })
+      if (
+        Array.isArray(cart?.products) &&
+        cart.products.length > 0 &&
+        guestId
+      ) {
+        dispatch(mergeCart({ guestId, user })).then(() => {
+          navigate(isCheckoutRedirect ? "/checkout" : "/");
+        });
       } else {
-        navigate(isCheckoutRedirect ? "/checkout" : "/")
+        navigate(isCheckoutRedirect ? "/checkout" : "/");
       }
     }
-  }, [user, guestId, cart, navigate, isCheckoutRedirect, dispatch])
+  }, [user, guestId, cart, navigate, isCheckoutRedirect, dispatch]);
+
+  const handleSubmit = async (e) => {
+  e.preventDefault();
+
+  const result = await dispatch(loginUser({ ...formData }));
+
+  if (loginUser.fulfilled.match(result)) {
+    toast.success("Login successful! Redirecting...", {
+      duration: 3000,
+      position: "top-center",
+    });
+    // No need to navigate here — your useEffect will handle it
+  } else {
+    toast.error(result.payload?.message || "Login failed. Please try again.", {
+      duration: 3000,
+      position: "top-center",
+    });
+  }
+};
 
   // useEffect(() => {
   //   if (user) {
@@ -63,11 +89,6 @@ const Login = () => {
   //   }
   // }, [user, guestId, cart, navigate, isCheckoutRedirect, dispatch]);
 
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    dispatch(loginUser({ ...formData }));
-  };
   return (
     <div className="flex">
       <div className="w-full md:w-1/2 flex flex-col items-center justify-center p-8 md:p-12">
@@ -119,7 +140,7 @@ const Login = () => {
           <p className="mt-6 text-center text-md text-gray-700">
             Don{"'"}t have an account?{" "}
             <Link
-              to={`/register?redirect=${encodeURIComponent("redirect")}`}
+              to={`/register?redirect=${encodeURIComponent(redirect)}`}
               className="text-blue-500"
             >
               Register

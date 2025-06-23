@@ -59,7 +59,7 @@ const memoizedQuery = useMemo(() => ({collection, ...queryParams}), [collection,
       >
         <FilterProducts />
       </div>
-      <div className="flex-grow p-4">
+      <div className="flex-1 p-4">
         <h2 className="text-2xl uppercase mb-4">Doughnuts and Beverages</h2>
 
         {/* mga option like something */}

@@ -60,6 +60,7 @@ const orderSlice = createSlice({
       .addCase(fetchUserOrders.fulfilled, (state, action) => {
         state.loading = false;
         state.orders = action.payload;
+        console.log("Fetched orders:", action.payload);
       })
       .addCase(fetchUserOrders.rejected, (state, action) => {
         state.loading = false;

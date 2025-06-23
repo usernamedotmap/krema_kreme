@@ -249,7 +249,7 @@ const Footer = () => {
         </div>
       </div>
 
-      <div className="menu-panel"></div>
+   
     </div>
   );
 };

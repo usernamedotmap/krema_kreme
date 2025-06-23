@@ -51,7 +51,7 @@ const debouncUpdateURL =  debounce(updateURLParams, 500);
   }
 
   return (
-    <div className="p-4 bg-[#fceef0]">
+    <div className="p-4 bg-[#fceef0] mr-10 ">
       <h3 className="text-xl font-medium text-gray-800 mb-4">Filter</h3>
 
       

@@ -6,21 +6,21 @@ body {
 
 .menu-container {
   display: flex;
-  flex-wrap: nowrap;
+  flex: 2;
   width: 100%;
   min-height: 100vh;
   margin-top: 5px;
 }
 
 .left-panel {
-  width: 30%;
+  width: 50%;
   background: #f9d9d9;
   padding: 20px;
   border: 6px dashed #b38888;
 }
 
 .menu-panel {
-  width: 35%;
+  width: 50%;
   background: #ffeef0;
   padding: 20px;
   border: 6px dashed #b38888;
