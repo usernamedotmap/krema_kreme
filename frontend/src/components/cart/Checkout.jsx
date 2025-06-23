@@ -10,10 +10,10 @@ const Checkout = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { cart, loading, error } = useSelector((state) => state.cart);
-  const { user } = useSelector((state) => state.auth);
-  
   const mergedProducts = cart?.products || cart?.userCart?.products || [];
   const totalPrice = cart?.totalPrice || cart?.userCart?.totalPrice || 0;
+  const { user } = useSelector((state) => state.auth);
+  
   const [checkoutId, setCheckoutId] = useState(null);
   const [shippingAddress, setShippingAddress] = useState({
     firstName: "",
