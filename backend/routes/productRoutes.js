@@ -11,15 +11,15 @@ import {
   similarProducts,
 } from "../controllers/products.controller.js";
 
-const route = express.Router();
+const router = express.Router();
 
-route.post("/", admin, postProduct);
-route.put("/:id", protectRoutes, admin, putProduct);
-route.delete("/:id", admin, deleteProduct);
-route.get("/", getProductWithFilter);
-route.get("/similar/:id", similarProducts);
-route.get("/best-seller", bestSellerProducts);
-route.get("/new-arrivals", newArrivalProducts);
-route.get("/:id", getProductById);
+router.post("/", admin, postProduct);
+router.put("/:id", protectRoutes, admin, putProduct);
+router.delete("/:id", admin, deleteProduct);
+router.get("/", getProductWithFilter);
+router.get("/similar/:id", similarProducts);
+router.get("/best-seller", bestSellerProducts);
+router.get("/new-arrivals", newArrivalProducts);
+router.get("/:id", getProductById);
 
-export default route;
+export default router;

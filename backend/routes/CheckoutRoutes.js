@@ -6,10 +6,10 @@ import {
   checkoutFinalizeController,
 } from "../controllers/checkout.controller.js";
 
-const route = express.Router();
+const router = express.Router();
 
-route.post("/", protectRoutes, checkoutController);
-route.put("/:id/pay", protectRoutes, putCheckoutController);
-route.post("/:id/finalize", protectRoutes, checkoutFinalizeController);
+router.post("/", protectRoutes, checkoutController);
+router.put("/:id/pay", protectRoutes, putCheckoutController);
+router.post("/:id/finalize", protectRoutes, checkoutFinalizeController);
 
-export default route;
+export default router;

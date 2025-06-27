@@ -2,11 +2,11 @@ import express from 'express';
 import { loginController, registerController, getUserController } from '../controllers/users.controller.js';
 import { protectRoutes } from '../middleware/protectedRoute.js';
 
-const route = express.Router();
+const router = express.Router();
 
-route.post("/register", registerController)
-route.post("/login", loginController)
-route.get("/profile", protectRoutes, getUserController)
+router.post("/register", registerController)
+router.post("/login", loginController)
+router.get("/profile", protectRoutes, getUserController)
 
 
-export default route;
+export default router;

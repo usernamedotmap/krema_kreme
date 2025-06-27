@@ -8,12 +8,12 @@ import {
 } from "../controllers/cart.controller.js";
 import { protectRoutes } from "../middleware/protectedRoute.js";
 
-const route = express();
+const router = express();
 
-route.post("/", postCartProduct);
-route.put("/", putCartProduct);
-route.delete("/", deleteCartProduct);
-route.get("/", getCartProduct);
-route.post("/merge", protectRoutes, mergeCartProduct);
+router.post("/", postCartProduct);
+router.put("/", putCartProduct);
+router.delete("/", deleteCartProduct);
+router.get("/", getCartProduct);
+router.post("/merge", protectRoutes, mergeCartProduct);
   
-export default route;
+export default router;
