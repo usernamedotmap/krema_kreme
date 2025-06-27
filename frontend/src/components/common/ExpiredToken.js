@@ -9,8 +9,8 @@ api.interceptors.response.use(
   (response) => response,
   (error) => {
     const isTokenExpired =
-      error.response?.status === 401 &&
-      error.response?.data?.message === "Token expired";
+  error.response?.status === 401 &&
+  error.response?.data?.message === "Not authorized, token failed";
 
     if (isTokenExpired) {
       localStorage.removeItem("userToken");

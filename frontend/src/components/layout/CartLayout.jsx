@@ -43,7 +43,7 @@ const CartLayout = ({ drawerOpen, toggleDrawer }) => {
       {/* main show HAHAHHAHA*/}
       <div className="flex-grow p-4 overflow-y-auto">
         <h2 className="text-xl font-semibold mb-4">Your Own Cart</h2>
-        {products ? (
+        {products.length > 0 ? (
           <CartContext cart={cart} userId={userId} guestId={guestId} />
         ) : (
           <p>Your cart is empty :{"("}</p>

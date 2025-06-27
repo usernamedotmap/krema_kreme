@@ -20,7 +20,7 @@ const CartContext = ({ cart, userId, guestId }) => {
   ? cart.products
   : Array.isArray(cart?.userCart?.products)
   ? cart.userCart.products
-  : [];
+  : []; 
 
   const handleAddToCart = (productId, delta, quantity, size) => {
     const newQuantity = quantity + delta;

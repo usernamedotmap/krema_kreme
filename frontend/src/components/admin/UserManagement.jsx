@@ -16,6 +16,8 @@ const UserManagement = () => {
   const { user } = useSelector((state) => state.auth);
   const { users, loading, error } = useSelector((state) => state.admin);
 
+  console.log("users:", users);
+
   useEffect(() => {
     if (user && user.role !== "admin") {
       navigate("/");

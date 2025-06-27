@@ -81,7 +81,7 @@ const OrderPage = () => {
                           : "text-red-700 bg-red-100"
                       } px-2 py-1 rounded-lg font-medium`}
                     >
-                      {order.isPaid ? "Bayad na!" : "Bayaran mo na!!!!"}
+                      {order.isPaid ? "Paid!" : "Not Paid!"}
                     </span>
                   </td>
                 </tr>
