@@ -22,7 +22,7 @@ const __dirname = path.resolve();
 app.use(express.json());
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: "https://hungerhalt-3j99nrv0t-usernamedotmaps-projects.vercel.app/",
     credentials: true,
   })
 );
