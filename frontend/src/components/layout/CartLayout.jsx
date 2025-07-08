@@ -1,14 +1,30 @@
-import React from "react";
 import { IoCloseCircleOutline } from "react-icons/io5";
 import CartContext from "../cart/CartContext";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const CartLayout = ({ drawerOpen, toggleDrawer }) => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+  const { user, guestId } = useSelector((state) => state.auth);
+  const { cart } = useSelector((state) => state.cart);
+  const userId = user ? user._id : null;
 
+
+  const products = Array.isArray(cart?.products)
+  ? cart.products
+  : Array.isArray(cart?.userCart?.products)
+  ? cart.userCart.products
+  : [];
+
+  
   const handleCheckout = () => {
-    navigate("/checkout")
-  }
+    toggleDrawer();
+    if (!user) {
+      navigate("/login?redirect=/checkout");
+    } else {
+      navigate("/checkout");
+    }
+  };
 
   return (
     <div
@@ -27,17 +43,27 @@ const CartLayout = ({ drawerOpen, toggleDrawer }) => {
       {/* main show HAHAHHAHA*/}
       <div className="flex-grow p-4 overflow-y-auto">
         <h2 className="text-xl font-semibold mb-4">Your Own Cart</h2>
-
-        <CartContext />
+        {products.length > 0 ? (
+          <CartContext cart={cart} userId={userId} guestId={guestId} />
+        ) : (
+          <p>Your cart is empty :{"("}</p>
+        )}
       </div>
 
       <div className="p-4 bg-[#D0E9E6] sticky bottom-0">
-        <button onClick={handleCheckout}  className="w-full bg-black text-white py-3 rounded-lg font-semibold hover:bg-gray-800">
-          CheckmeOut
-        </button>
-        <p className="text-sm text-center tracking-tighter text-gray-500 mt-2">
-          Please, Please, Please. Don't prove I'm right
-        </p>
+        {cart && cart?.products?.length > 0 && (
+          <>
+            <button
+              onClick={handleCheckout}
+              className="w-full bg-black text-white py-3 rounded-lg font-semibold hover:bg-gray-800"
+            >
+              Check Out
+            </button>
+            <p className="text-sm text-center tracking-tighter text-gray-500 mt-2">
+            
+            </p>
+          </>
+        )}
       </div>
     </div>
   );

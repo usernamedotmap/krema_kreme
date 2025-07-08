@@ -1,29 +1,29 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import PaypalButton from "./PaypalButton";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { createCheckout } from "../../redux/slices/checkoutSlice";
+import api from "../common/ExpiredToken";
 
-const cartItems = [
-  {
-    productId: 1,
-    name: "Eahcakes",
-    price: "100",
-    size: "M",
-    quantity: 2,
-    image:
-      "https://mgi-deliveryportal.s3.amazonaws.com/1418x1063px-MGCC-KK-Bites-Bucket.jpg",
-  },
-  {
-    productId: 2,
-    name: "Eahcakes",
-    price: "200",
-    size: "L",
-    quantity: 2,
-    image:
-      "https://mgi-deliveryportal.s3.amazonaws.com/1418x1063px-MGCC-KK-Bites-Bucket.jpg",
-  },
-];
 const Checkout = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { cart, loading, error } = useSelector((state) => state.cart);
+  const mergedProducts =
+    cart?.products ||
+    cart?.userCart?.products ||
+    cart?.guestCart?.products ||
+    [];
+
+  const totalPrice =
+  cart?.totalPrice ||
+  cart?.userCart?.totalPrice ||
+  cart?.guestCart?.totalPrice ||
+  0;
+
+  const { user } = useSelector((state) => state.auth);
+
   const [checkoutId, setCheckoutId] = useState(null);
   const [shippingAddress, setShippingAddress] = useState({
     firstName: "",
@@ -44,20 +44,76 @@ const Checkout = () => {
     "Pasay",
   ];
 
-  const totalAmount = cartItems.reduce(
-    (sum, item) => sum + Number(item.price) * item.quantity,
-    0
-  );
-
-  const handleSubmit = (e) => {
+  console.log("cart from checkout:", cart);
+  console.log("mergedProducts from checkout:", mergedProducts);
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    setCheckoutId(123);
+    if (mergedProducts.length > 0) {
+      const res = await dispatch(
+        createCheckout({
+          checkoutItems: mergedProducts,
+          shippingAddress,
+          paymentMethod: "Paypal",
+          totalPrice,
+        })
+      );
+
+      if (res.payload && res.payload._id) {
+        setCheckoutId(res.payload._id);
+      }
+    }
   };
 
-  const handlePaymentSuccess = (details) => {
-    console.log("Payment Success", details);
+  const handlePaymentSuccess = async (details) => {
+    try {
+      const response = await api.put(
+        `checkout/${checkoutId}/pay`,
+        {
+          paymentStatus: "paid",
+          paymentDetails: details,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("userToken")}`,
+          },
+        }
+      );
+      if (response.status === 200 && checkoutId) {
+        await handleFinalizedCheckout(checkoutId);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+
     navigate("/order-confirmation");
   };
+
+  const handleFinalizedCheckout = async (checkoutId) => {
+    try {
+      const response = await api.post(
+        `/checkout/${checkoutId}/finalize`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("userToken")}`,
+          },
+        }
+      );
+      if (response.status === 200) {
+        navigate("/order-confirmation");
+      } else {
+        console.log(error);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  if (loading) return <p>Loading cart ...</p>;
+  if (error) return <p>Error: {error}</p>;
+  if (mergedProducts.length === 0) {
+    return <p className="text-red-500 text-center text-xl font-bold">Your cart is empty</p>;
+  }
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-7xl mx-auto py-10 px-6 tracking-tighter">
@@ -70,7 +126,7 @@ const Checkout = () => {
             <label className="block text-gray-700">Email</label>
             <input
               type="email"
-              value="testinglang@test.com"
+              value={user ? user.email : ""}
               className="w-full p-2 border rounded border-gray-400"
               disabled
             />
@@ -152,6 +208,7 @@ const Checkout = () => {
                 type="tel"
                 value={shippingAddress.phone}
                 pattern="^\+639\d{9}$"
+                placeholder="example... +6399093847584"
                 onChange={(e) =>
                   setShippingAddress({
                     ...shippingAddress,
@@ -176,9 +233,9 @@ const Checkout = () => {
               <div>
                 <h3 className="text-lg mb-4">Pay with Paypal</h3>
                 <PaypalButton
-                  amount={100}
+                  amount={totalPrice}
                   onSuccess={handlePaymentSuccess}
-                  onError={(err) => alert("Payment Failed. Try Again")}
+                  onError={() => alert("Payment Failed. Try Again")}
                 />
               </div>
             )}
@@ -189,20 +246,20 @@ const Checkout = () => {
       <div className="bg-gray-50 p-6 rounded-lg">
         <h3 className="text-lg mb-4">Preview Order</h3>
         <div className="border-t py-4 mb-4">
-          {cartItems.map((product) => (
+          {mergedProducts.map((product, index) => (
             <div
-              key={product.productId}
+              key={product.productId + index}
               className="flex items-start justify-between py-2 border-b"
             >
               <div className="flex items-start">
                 <img
-                  src={product.image}
+                  src={product.images[0].url}
                   alt={product.name}
                   className="w-20 h-24 object-cover mr-4"
                 />
                 <div>
                   <h3 className="text-lg font-semibold">{product.name}</h3>
-                  <p className="text-gray-500">Size: {product.size}</p>
+                  <p className="text-gray-500">Size: {product.size.label}</p>
                 </div>
               </div>
               <p className="text-xl">
@@ -217,7 +274,7 @@ const Checkout = () => {
         <div className="flex justify-between items-center text-lg mb-4">
           <p>Subtotal</p>
           <p>
-            {totalAmount.toLocaleString("en-PH", {
+            {totalPrice.toLocaleString("en-PH", {
               currency: "PHP",
               style: "currency",
             })}
@@ -235,7 +292,7 @@ const Checkout = () => {
         <div className="flex justify-between items-center text-lg mt-4 border-t pt-4">
           <p>Total</p>
           <p className="text-rose-500">
-            {totalAmount.toLocaleString("en-PH", {
+            {totalPrice.toLocaleString("en-PH", {
               currency: "PHP",
               style: "currency",
             })}

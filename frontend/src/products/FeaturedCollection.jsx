@@ -5,7 +5,7 @@ import FeaturesSaBaba from "./FeaturesSaBaba";
 const FeaturedCollection = () => {
   return (
     <>
-    <section className="py-16 px-4 lg:px-0">
+    <section className="py-5 px-4 lg:px-0">
       <div className="container mx-auto flex flex-col-reverse lg:flex-row items-center bg-[#D0e9e6] rounded-3xl">
         <div className="lg:w-1/2 p-8 text-center lg:text-left text-pretty">
           <h2 className="text-lg font-semibold text-gray-700 mb-2 capitalize">
@@ -19,7 +19,7 @@ const FeaturedCollection = () => {
             Haplos mo'y ramdam pa rin sa dilim.
           </p>
           <Link
-            to="/collection/all"
+            to="/collections/all"
             className="bg-black text-white px-6 py-3 rounded-lg text-lg hover:bg-gray-800"
           >
             Order Now
